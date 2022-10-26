@@ -89,6 +89,10 @@ flutter:
     - assets/images/chat.svg
     - assets/images/report.svg
     - assets/images/homepage.svg
+    - assets/images/homeTest.svg
+    - assets/images/homeTest.png
+    - assets/images/search.svg
+    - assets/images/lab1.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,7 +4,7 @@ import 'package:flutter_application/Screens/SignUp/components/background.dart';
 import 'package:flutter_application/Screens/LogIn/components/roundedInputField.dart';
 import 'package:flutter_application/constants.dart';
 
-import '../../../user.dart';
+import '../../../models/user.dart';
 import '../../LogIn/components/RoundedPasswordField.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 

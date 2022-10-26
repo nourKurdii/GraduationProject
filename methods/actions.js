@@ -1,6 +1,8 @@
 var User = require('../models/user')
 var jwt = require('jwt-simple')
 var config = require('../config/dbconfig')
+var lab = require('../models/lab')
+var doctor = require('../models/doctor')
 
 var functions = {
     /*addNew: function(req, res)
@@ -91,6 +93,13 @@ var functions = {
             return res.json({success: false, msg:'no headers'})
         }
     }*/
+    getLabInfo: function(req,res){
+
+    },
+
+    getDoctorInfo: function(req,res){
+
+    },
 }
 
 module.exports = functions

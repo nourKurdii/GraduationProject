@@ -5,7 +5,7 @@ import 'package:flutter_application/Screens/LogIn/components/background.dart';
 import 'package:flutter_application/Screens/SignUp/SignUpScreen.dart';
 
 import '../../../constants.dart';
-import '../../../user.dart';
+import '../../../models/user.dart';
 import '../../Dashboard.dart';
 import '../../welcome/components/roundedButton.dart';
 import 'RoundedPasswordField.dart';

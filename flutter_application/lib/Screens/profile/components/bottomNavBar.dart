@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/Dashboard.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../HomePage/homePage.dart';
 import '../profileScreen.dart';
 import 'enums.dart';
 
@@ -39,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return Dashboard();
+                      return homePage();
                     },
                   ),
                 );
