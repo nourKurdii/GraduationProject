@@ -7,9 +7,12 @@ import 'LabCard.dart';
 class LabsSection extends StatelessWidget {
   const LabsSection({
     Key? key,
-    required this.l,
+    required this.name,
+    required this.Image,
+    required this.Location,
   }) : super(key: key);
-  final lab l;
+  final String name, Image, Location;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,9 +30,9 @@ class LabsSection extends StatelessWidget {
             child: Row(
               children: [
                 LabCard(
-                  image: l.image,
-                  name: l.name,
-                  location: l.location,
+                  image: Image,
+                  name: name,
+                  location: Location,
                   press: () {},
                 ),
                 SizedBox(

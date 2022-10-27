@@ -2,10 +2,10 @@ class lab {
   String name, location;
   String image;
 
-  lab({required this.name,  required this.location, required this.image});
+  lab(l, {required this.name, required this.location, required this.image});
 }
 
-List<lab> demolab = [
+/*List<lab> demolab = [
   lab(
       name: "Lab name",
       location: "Lab location",
@@ -22,4 +22,4 @@ List<lab> demolab = [
       name: "Lab name",
       location: "Lab location",
       image: "assets/images/lab1.jpg"),
-];
+];*/

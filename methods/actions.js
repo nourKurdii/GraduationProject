@@ -1,30 +1,11 @@
 var User = require('../models/user')
 var jwt = require('jwt-simple')
 var config = require('../config/dbconfig')
-var lab = require('../models/lab')
-var doctor = require('../models/doctor')
+var Lab = require('../models/lab')
+var Doctor = require('../models/doctor')
 
 var functions = {
-    /*addNew: function(req, res)
-    {
-        if((!req.body.name) || (!req.body.password)) {
-            res.json({success: false, msg: 'enter all fields'})
-        }
-        else {
-            var newUser = User({
-                name: req.body.name,
-                password: req.body.password
-            });
-            newUser.save(function(err, newUser){
-                if(err) {
-                    res.json({success: false, msg: 'failed to save'})
-                }
-                else {
-                    res.json({success: true, msg: 'successfully saved'})
-                }
-            })
-        }
-    },*/
+    
     signUp: function(req,res){
         if((!req.body.email) || (!req.body.password)) {
             res.json({success: false, msg: 'enter all fields'})
@@ -82,23 +63,23 @@ var functions = {
         }
         )
     },
-    /*getinfo: function(req , res) 
-    {
-        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            var token = req.headers.authorization.split(' ')[1]
-            var decodedtoken = jwt.decode(token, config.secret)
-            return res.json({success: true, msg: 'hello ' + decodedtoken.name})
-        }
-        else {
-            return res.json({success: false, msg:'no headers'})
-        }
-    }*/
+   
     getLabInfo: function(req,res){
-
+        
+        Lab.find({},(error,data)=>{
+            if(error) throw error;
+            console.log(data)
+            return res.json( data);
+        })  
+              
     },
 
     getDoctorInfo: function(req,res){
-
+        Doctor.find({},(error,data)=>{
+            if(error) throw error;
+            console.log(data)
+            return res.json( data);
+        })  
     },
 }
 

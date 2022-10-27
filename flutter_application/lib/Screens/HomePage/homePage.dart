@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/models/lab.dart';
 import '../../models/doctor.dart';
@@ -12,10 +14,46 @@ import 'components/doctorCard.dart';
 import 'components/listView.dart';
 import 'components/searchBar.dart';
 import '../../../size_config.dart';
+import 'package:http/http.dart' as http;
 
-class homePage extends StatelessWidget {
-  const homePage({super.key});
+class homePage extends StatefulWidget {
+  @override
+  _homeState createState() => _homeState();
+}
 
+Future<List> fetchLab() async {
+  try {
+    var res = await http.get(
+      Uri.parse("http://10.0.2.2:3000/getLabInfo"),
+    );
+    if (res.statusCode == 200) {
+      var obj = jsonDecode(res.body);
+      print(obj);
+      return jsonDecode(res.body);
+    } else
+      return Future.error('error');
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
+Future<List> fetchDoctor() async {
+  try {
+    var res = await http.get(
+      Uri.parse("http://10.0.2.2:3000/getDoctorInfo"),
+    );
+    if (res.statusCode == 200) {
+      var obj = jsonDecode(res.body);
+      print(obj);
+      return jsonDecode(res.body);
+    } else
+      return Future.error('error');
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
+class _homeState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -61,14 +99,39 @@ class homePage extends StatelessWidget {
                     new MaterialPageRoute(builder: (context) => Dashboard()));
               },
             ),
-            SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(demolab.length,
-                        (index) => LabsSection(l: demolab[index]))
-                  ],
-                )),
+            FutureBuilder<List>(
+              future: fetchLab(),
+              builder: ((context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  print("no Data");
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasData) {
+                  print(snapshot.data);
+
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...List.generate(
+                            (snapshot.data as dynamic).length,
+                            (index) => LabsSection(
+                                  name: snapshot.data[index]['name'],
+                                  Image: snapshot.data[index]['image'],
+                                  Location: snapshot.data[index]['location'],
+                                )),
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              }),
+            ),
+
             SizedBox(
               height: 15,
             ),
@@ -84,18 +147,35 @@ class homePage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ...List.generate(demoDoctor.length,
-                      (index) => doctorCard(d: demoDoctor[index])),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
+
+            FutureBuilder<List>(
+              future: fetchLab(),
+              builder: ((context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  print("no Data");
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasData) {
+                  print(snapshot.data);
+
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...List.generate(demoDoctor.length,
+                            (index) => doctorCard(d: demoDoctor[index])),
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              }),
             ),
+
             SizedBox(
               height: 20,
             ),

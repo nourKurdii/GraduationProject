@@ -14,5 +14,8 @@ router.post('/authenticate',actions.authenticate)
 //router.get('/getinfo', actions.getinfo)
 
 router.post('/signUp',actions.signUp)
+router.get('/getLabInfo', actions.getLabInfo)
+router.get('/getDoctorInfo', actions.getDoctorInfo)
+
 
 module.exports = router

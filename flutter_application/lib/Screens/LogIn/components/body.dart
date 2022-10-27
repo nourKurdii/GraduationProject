@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application/Screens/HomePage/homePage.dart';
 import 'package:flutter_application/Screens/LogIn/components/background.dart';
 import 'package:flutter_application/Screens/SignUp/SignUpScreen.dart';
 
 import '../../../constants.dart';
 import '../../../models/user.dart';
-import '../../Dashboard.dart';
 import '../../welcome/components/roundedButton.dart';
 import 'RoundedPasswordField.dart';
 import 'alreadyHaveAnAccountCheck.dart';
@@ -36,7 +36,7 @@ class _bodyState extends State<Signin> {
     print(res.body);
 
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => Dashboard()));
+        context, new MaterialPageRoute(builder: (context) => homePage()));
   }
 
   @override

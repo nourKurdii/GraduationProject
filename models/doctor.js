@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var labSchema = new Schema({
+var doctorSchema = new Schema({
     name:{
         type : String,
     },
@@ -13,3 +13,4 @@ var labSchema = new Schema({
     },
     
 })
+module.exports = mongoose.model('Doctor',doctorSchema)

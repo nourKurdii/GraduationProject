@@ -19,17 +19,14 @@ var labSchema = new Schema({
         type: String,
         require: true
     },
-    name: {
-        type: String,
-    },
     phone: {
         type: String,
     },
     longitude: {
-        type: float,
+        type: Number,
     },
     latitude: {
-        type: float,
+        type: Number,
     },
     homeVisit: {
         type: Boolean,
@@ -38,7 +35,8 @@ var labSchema = new Schema({
         type: Array,
     },
     rating: {
-        type: float,
+        type: Number,
     }
 
 })
+module.exports = mongoose.model('Lab',labSchema)
