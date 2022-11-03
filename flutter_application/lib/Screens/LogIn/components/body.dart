@@ -1,42 +1,77 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/HomePage/homePage.dart';
 import 'package:flutter_application/Screens/LogIn/components/background.dart';
 import 'package:flutter_application/Screens/SignUp/SignUpScreen.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../constants.dart';
 import '../../../models/user.dart';
 import '../../welcome/components/roundedButton.dart';
 import 'RoundedPasswordField.dart';
 import 'alreadyHaveAnAccountCheck.dart';
 import 'roundedInputField.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class Signin extends StatefulWidget {
   const Signin({
     Key? key,
   }) : super(key: key);
+
   @override
   _bodyState createState() => _bodyState();
 }
 
 class _bodyState extends State<Signin> {
-  final _formKey = GlobalKey<FormState>();
-  User user = new User('', '');
-  Future save() async {
-    var res = await http.post(Uri.parse("http://10.0.2.2:3000/authenticate"),
-        headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UFT-8'
-        },
-        body: <String, String>{
-          'email': user.email,
-          'password': user.password
-        });
-    print(res.body);
+  var logEmail, logPassword;
+  TextEditingController emailControl = new TextEditingController();
+  TextEditingController nameControl = new TextEditingController();
+  TextEditingController phoneControl = new TextEditingController();
+  TextEditingController passwordControl = new TextEditingController();
 
-    Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => homePage()));
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameControl.text = User.getName();
+    phoneControl.text = User.getPhone();
+  }
+
+  var dio = Dio();
+
+  getUserInfo(email) async {
+    var res = await dio.get(('http://10.0.2.2:3000/getUserInfo/$email'));
+
+    if (res.statusCode == 200) {
+      print(User.email);
+      print((res));
+      User.setName(res.data["name"]);
+      User.setPhone(res.data["phone"]);
+
+      //User.getName();
+      //print(res.data["name"]);
+      var name;
+      name = (User.getName());
+      print(name);
+      //return jsonDecode(res.data);
+      Navigator.push(
+          context, new MaterialPageRoute(builder: (context) => homePage(name)));
+    } else
+      return Future.error('error');
+  }
+
+  save(logEmail, logPassword) async {
+    try {
+      return await dio.post(
+        ('http://10.0.2.2:3000/authenticate'),
+        data: {"email": logEmail, "password": logPassword},
+      );
+    } on DioError catch (e) {
+      return Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: kPrimaryLightColor,
+          textColor: Colors.black);
+    }
   }
 
   @override
@@ -54,33 +89,51 @@ class _bodyState extends State<Signin> {
                 width: size.width * 0.6),
             Container(
               child: Form(
-                key: _formKey,
                 child: Column(children: [
                   RounedInputField(
-                    textEditingCont: user.email,
+                    textEditingCont: TextEditingController(text: logEmail),
                     hintText: "someone@company.com",
                     icon: Icons.person,
                     onChanged: (value) {
-                      user.email = value;
+                      logEmail = value;
+                      //User.setEmail(value);
                     },
                     color: inputFieldBackground,
                   ),
                   RoundedPasswordField(
-                    onChange: (Value) {
-                      user.password = Value;
-                    },
-                    color: inputFieldBackground,
-                    textEditingCont: user.password,
-                  ),
+                      onChange: (Value) {
+                        logPassword = Value;
+                        //User.setPassword(Value);
+                      },
+                      color: inputFieldBackground,
+                      textEditingCont:
+                          TextEditingController(text: logPassword)),
                   roundedButton(
                     text: "LOGIN",
                     press: () {
-                      if (_formKey.currentState!.validate()) {
-                        print("ok");
-                        save();
-                      } else {
-                        print("not Ok");
-                      }
+                      save(logEmail, logPassword).then((value) {
+                        if (value.data['success']) {
+                          print("ok");
+                          Fluttertoast.showToast(
+                              msg: value.data['msg'],
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: kPrimaryLightColor,
+                              textColor: Colors.black,
+                              fontSize: 16.0);
+                          User.setEmail(logEmail);
+                          getUserInfo(logEmail);
+                        } else {
+                          print("not Ok");
+                          Fluttertoast.showToast(
+                              msg: value.data['msg'],
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: kPrimaryLightColor,
+                              textColor: Colors.black,
+                              fontSize: 16.0);
+                        }
+                      });
                     },
                     color: kPrimaryColor,
                     textColor: Colors.white,

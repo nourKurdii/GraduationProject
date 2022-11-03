@@ -8,23 +8,23 @@ class RounedInputField extends StatelessWidget {
   final IconData icon;
   final ValueChanged<String> onChanged;
   final Color color;
-  final String textEditingCont;
+  final TextEditingController textEditingCont;
 
-  const RounedInputField({
-    Key? key,
-    required this.hintText,
-    required this.icon,
-    required this.onChanged,
-    required this.color,
-    required this.textEditingCont,
-  }) : super(key: key);
+  const RounedInputField(
+      {Key? key,
+      required this.hintText,
+      required this.icon,
+      required this.onChanged,
+      required this.color,
+      required this.textEditingCont})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return textField(
       color: color,
       child: TextFormField(
-        controller: TextEditingController(text: textEditingCont),
+        controller: (textEditingCont),
         onChanged: onChanged,
         decoration: InputDecoration(
             border: InputBorder.none,
@@ -33,7 +33,7 @@ class RounedInputField extends StatelessWidget {
               color: kPrimaryColor,
             ),
             hintText: hintText),
-            validator: (ValueKey) {
+        validator: (ValueKey) {
           if (ValueKey!.isEmpty) {
             return 'Email is required';
           } else if (!(RegExp(

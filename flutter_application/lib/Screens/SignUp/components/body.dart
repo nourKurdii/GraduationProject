@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/LogIn/LogInScreen.dart';
 import 'package:flutter_application/Screens/SignUp/components/background.dart';
@@ -11,7 +12,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '../../LogIn/components/alreadyHaveAnAccountCheck.dart';
 import '../../welcome/components/roundedButton.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class Signup extends StatefulWidget {
   const Signup({
@@ -22,20 +23,34 @@ class Signup extends StatefulWidget {
 }
 
 class _bodyState extends State<Signup> {
+  TextEditingController emailControl = new TextEditingController();
+  TextEditingController nameControl = new TextEditingController();
+  TextEditingController phoneControl = new TextEditingController();
+  TextEditingController passwordControl = new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    emailControl.text = User.getEmail();
+    nameControl.text = User.getName();
+    phoneControl.text = User.getPhone();
+  }
+
+  Dio dio = new Dio();
   final _formKey = GlobalKey<FormState>();
-  User user = new User('', '');
+  User user = new User();
   final String name = '';
 
-  Future save() async {
-    var res = await http.post(Uri.parse("http://10.0.2.2:3000/signUp"),
-        headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UFT-8'
+  Future addUser() async {
+    return await dio.post('http://10.0.2.2:3000/signUp',
+        data: {
+          "name": User.name,
+          "email": User.email,
+          "phone": User.phone,
+          "password": User.password
         },
-        body: <String, String>{
-          'email': user.email,
-          'password': user.password
-        });
-    print(res.body);
+        options: Options(contentType: Headers.formUrlEncodedContentType));
   }
 
   @override
@@ -74,12 +89,12 @@ class _bodyState extends State<Signup> {
                             height: 12,
                           ),
                           RounedInputField(
-                            textEditingCont: user.email,
+                            textEditingCont: emailControl,
                             color: inputFieldBackground,
                             icon: Icons.person,
                             hintText: "Your Email",
                             onChanged: ((value) => {
-                                  user.email = value,
+                                  User.setEmail(value),
                                 }),
                           ),
                           Container(
@@ -91,8 +106,8 @@ class _bodyState extends State<Signup> {
                                 color: inputFieldBackground,
                                 borderRadius: BorderRadius.circular(29)),
                             child: TextFormField(
-                              controller: TextEditingController(text: name),
-                              onChanged: ((value) => {}),
+                              controller: (nameControl),
+                              onChanged: ((value) => {User.setName(value)}),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   icon: Icon(
@@ -123,7 +138,9 @@ class _bodyState extends State<Signup> {
                             child: Stack(
                               children: [
                                 InternationalPhoneNumberInput(
-                                  onInputChanged: (value) {},
+                                  onInputChanged: (PhoneNumber number) {
+                                    User.setPhone(number.phoneNumber!);
+                                  },
                                   cursorColor: Colors.black,
                                   formatInput: false,
                                   selectorConfig: SelectorConfig(
@@ -145,9 +162,9 @@ class _bodyState extends State<Signup> {
                             height: 12,
                           ),
                           RoundedPasswordField(
-                            textEditingCont: user.password,
+                            textEditingCont: passwordControl,
                             onChange: (value) {
-                              user.password = value;
+                              User.setPassword(value);
                             },
                             color: inputFieldBackground,
                           ),
@@ -159,7 +176,7 @@ class _bodyState extends State<Signup> {
                             press: () {
                               if (_formKey.currentState!.validate()) {
                                 print("ok");
-                                save();
+                                addUser();
                               } else {
                                 print("not Ok");
                               }

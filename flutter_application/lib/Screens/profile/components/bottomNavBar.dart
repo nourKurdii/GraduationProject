@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../models/user.dart';
 import '../../HomePage/homePage.dart';
 import '../profileScreen.dart';
 import 'enums.dart';
@@ -13,6 +14,7 @@ class BottomNavBar extends StatelessWidget {
   }) : super(key: key);
 
   final MenuState selectedMeu;
+  //User user = new User('', '');
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class BottomNavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return homePage();
+                      return homePage(User.getName());
                     },
                   ),
                 );

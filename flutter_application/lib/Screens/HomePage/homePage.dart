@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application/models/lab.dart';
 import '../../models/doctor.dart';
 import '../Dashboard.dart';
 import '../profile/components/bottomNavBar.dart';
@@ -15,10 +13,15 @@ import 'components/listView.dart';
 import 'components/searchBar.dart';
 import '../../../size_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class homePage extends StatefulWidget {
+  var name;
+
+  homePage(this.name);
+
   @override
-  _homeState createState() => _homeState();
+  _homeState createState() => _homeState(name);
 }
 
 Future<List> fetchLab() async {
@@ -28,7 +31,7 @@ Future<List> fetchLab() async {
     );
     if (res.statusCode == 200) {
       var obj = jsonDecode(res.body);
-      print(obj);
+      //print(obj);
       return jsonDecode(res.body);
     } else
       return Future.error('error');
@@ -44,7 +47,7 @@ Future<List> fetchDoctor() async {
     );
     if (res.statusCode == 200) {
       var obj = jsonDecode(res.body);
-      print(obj);
+      //print(obj);
       return jsonDecode(res.body);
     } else
       return Future.error('error');
@@ -54,14 +57,22 @@ Future<List> fetchDoctor() async {
 }
 
 class _homeState extends State<homePage> {
+  var dio = Dio();
+  var name;
+  _homeState(this.name);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
     return Scaffold(
-      bottomNavigationBar: BottomNavBar(
-        selectedMeu: MenuState.home,
-      ),
+      bottomNavigationBar: BottomNavBar(selectedMeu: MenuState.home),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,10 +80,13 @@ class _homeState extends State<homePage> {
               height: 45,
             ),
             //app bar
+            //print(snapshot.data);
+
             appBar(
               icon: Icons.person,
-              name: "Nour Kurdi",
+              name: this.name,
             ),
+
             //Card
             card(),
             SizedBox(
@@ -107,7 +121,7 @@ class _homeState extends State<homePage> {
                   print("no Data");
                   return CircularProgressIndicator();
                 } else if (snapshot.hasData) {
-                  print(snapshot.data);
+                  //print(snapshot.data);
 
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -156,7 +170,7 @@ class _homeState extends State<homePage> {
                   print("no Data");
                   return CircularProgressIndicator();
                 } else if (snapshot.hasData) {
-                  print(snapshot.data);
+                  //print(snapshot.data);
 
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,

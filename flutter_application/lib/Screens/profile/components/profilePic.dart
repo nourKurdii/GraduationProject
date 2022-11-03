@@ -18,6 +18,16 @@ class profilePic extends StatelessWidget {
           CircleAvatar(
             backgroundImage: AssetImage("assets/images/avatar.png"),
           ),
+          /*Container(
+            width: 200,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage("assets/images/avatar.png"),
+                  fit: BoxFit.fill),
+            ),
+          ),*/
           Positioned(
             right: -12,
             bottom: 0,

@@ -25,16 +25,7 @@ class profileMenu extends StatelessWidget {
               padding: EdgeInsets.all(20),
               backgroundColor: inputFieldBackground,
             ),
-            onPressed: () {
-               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return mainScreen();
-                    },
-                  ),
-                );
-            },
+            onPressed: press,
             child: Row(
               children: [
                 SvgPicture.asset(
