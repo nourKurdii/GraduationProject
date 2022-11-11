@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class profilePic extends StatelessWidget {
   const profilePic({
     Key? key,
+    required this.press,
+    required this.file,
   }) : super(key: key);
+  final File? file;
+  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +21,20 @@ class profilePic extends StatelessWidget {
         fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/images/avatar.png"),
-          ),
-          /*Container(
+          /*CircleAvatar(
+            backgroundImage: Image.file(file),
+          ),*/
+          Container(
             width: 200,
             height: 100,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image: AssetImage("assets/images/avatar.png"),
+                image: FileImage(file!),
+                  //image: AssetImage("assets/images/avatar.png"),
                   fit: BoxFit.fill),
             ),
-          ),*/
+          ),
           Positioned(
             right: -12,
             bottom: 0,
@@ -41,7 +48,7 @@ class profilePic extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       backgroundColor: Color(0xfff5f6f9),
                     ),
-                    onPressed: () {},
+                    onPressed: press,
                     child: SvgPicture.asset("assets/images/Camera.svg"),
                   ),
                 )),

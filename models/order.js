@@ -10,7 +10,8 @@ var orderSchema = new Schema({
     },
     labEmail: {
         type: String,
-        require: true
+        require: true,
+        ref: 'Lab'
     },
     test:{
         type:String,

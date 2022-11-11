@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../models/user.dart';
 import '../../HomePage/homePage.dart';
+import '../../reports/allreports.dart';
 import '../profileScreen.dart';
 import 'enums.dart';
 
@@ -51,7 +52,16 @@ class BottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor)),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return reportsPage();
+                    },
+                  ),
+                );
+              },
               icon: SvgPicture.asset("assets/images/report.svg",
                   color: MenuState.report == selectedMeu
                       ? kPrimaryColor

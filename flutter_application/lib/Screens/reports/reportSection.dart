@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/Dashboard.dart';
-import 'LabCard.dart';
+import 'package:flutter_application/Screens/reports/reportCard.dart';
 
-class LabsSection extends StatelessWidget {
-  const LabsSection({
+class reportSection extends StatelessWidget {
+  const reportSection({
     Key? key,
     required this.name,
-    required this.Image,
-    required this.Location,
+    required this.labName,
+    required this.time,
+    required this.date,
   }) : super(key: key);
-  final String name, Image, Location;
+  final String name, labName, time, date;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,14 @@ class LabsSection extends StatelessWidget {
             height: 10,
           ),
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+            scrollDirection: Axis.vertical,
+            child: Column(
               children: [
-                LabCard(
-                  image: Image,
+                reportCard(
                   name: name,
-                  location: Location,
+                  labName: labName,
+                  date: date,
+                  time: time,
                   press: () {},
                 ),
                 SizedBox(

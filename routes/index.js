@@ -18,6 +18,9 @@ router.get('/getLabInfo', actions.getLabInfo)
 router.get('/getDoctorInfo', actions.getDoctorInfo)
 router.get('/getUserInfo/:email',actions.getUserInfo)
 router.put('/updateUserinfo/:email',actions.updateUserinfo)
-
+router.get('/getReports/:patientEmail',actions.getReports)
+router.get('/getSpeceficReport/:id',actions.getSpeceficReport)
+router.put('/changePassword/:email',actions.changePassword)
+router.get('/getBookings/:patientEmail',actions.getBookings)
 
 module.exports = router

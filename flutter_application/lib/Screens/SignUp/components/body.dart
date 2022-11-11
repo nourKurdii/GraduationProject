@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/Screens/HomePage/homePage.dart';
 import 'package:flutter_application/Screens/LogIn/LogInScreen.dart';
 import 'package:flutter_application/Screens/SignUp/components/background.dart';
 import 'package:flutter_application/Screens/LogIn/components/roundedInputField.dart';
 import 'package:flutter_application/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../models/user.dart';
 import '../../LogIn/components/RoundedPasswordField.dart';
@@ -11,8 +13,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../LogIn/components/alreadyHaveAnAccountCheck.dart';
 import '../../welcome/components/roundedButton.dart';
-
-import 'package:dio/dio.dart';
 
 class Signup extends StatefulWidget {
   const Signup({
@@ -39,7 +39,7 @@ class _bodyState extends State<Signup> {
 
   Dio dio = new Dio();
   final _formKey = GlobalKey<FormState>();
-  User user = new User();
+  //User user = new User();
   final String name = '';
 
   Future addUser() async {
@@ -139,7 +139,8 @@ class _bodyState extends State<Signup> {
                               children: [
                                 InternationalPhoneNumberInput(
                                   onInputChanged: (PhoneNumber number) {
-                                    User.setPhone(number.phoneNumber!);
+                                    User.setPhone(
+                                        number.phoneNumber!.toString());
                                   },
                                   cursorColor: Colors.black,
                                   formatInput: false,
@@ -177,6 +178,20 @@ class _bodyState extends State<Signup> {
                               if (_formKey.currentState!.validate()) {
                                 print("ok");
                                 addUser();
+                                Fluttertoast.showToast(
+                                    msg: "Signed Up Successfully",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                    backgroundColor: kPrimaryLightColor,
+                                    textColor: Colors.black);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return homePage(User.name);
+                                    },
+                                  ),
+                                );
                               } else {
                                 print("not Ok");
                               }
