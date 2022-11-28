@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
         ),
-        // home: mainScreen()
-        home: tempHome()
+        home: mainScreen()
+        //home: tempHome()
         //home: location()
         );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../../constants.dart';
 //import 'package:marahsebaproject/core/theme/app_color.dart';
 
 class TimeWidget extends StatelessWidget {
@@ -16,7 +18,7 @@ class TimeWidget extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 233, 227, 243),
+        color: isSelected ? kPrimaryColor:Color.fromARGB(255, 233, 227, 243),
         //  isSelected ? AppColor.y : AppColor.white.withOpacity(0.5),
         borderRadius: BorderRadius.circular(24),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/HomePage/allLabs/booking/timeExtention.dart';
+import 'package:flutter_application/constants.dart';
 //import 'package:flutter_application_1/core/theme/app_color.dart';
 
 class DateWidget extends StatelessWidget {
@@ -17,8 +18,7 @@ class DateWidget extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 233, 227, 243),
-        // isSelected ? AppColor.y : AppColor.white.withOpacity(0.5),
+        color: isSelected ? kPrimaryColor:Color.fromARGB(255, 233, 227, 243),
         borderRadius: BorderRadius.circular(24),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -36,7 +36,7 @@ class DateWidget extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color:Colors.white, 
+              color: Colors.white,
               // isSelected ? AppColor.white : null,
             ),
             padding: const EdgeInsets.all(8),

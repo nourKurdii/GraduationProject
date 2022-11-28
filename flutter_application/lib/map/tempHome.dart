@@ -17,7 +17,7 @@ class _tempHome extends State<tempHome> {
           child: ElevatedButton(
       onPressed: () {
           Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => MyApp()));
+              context, new MaterialPageRoute(builder: (context) => CurrentLocationScreen()));
       },
       child: Text('Go To Map'),
     ),

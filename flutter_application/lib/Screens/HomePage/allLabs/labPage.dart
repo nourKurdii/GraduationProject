@@ -356,8 +356,8 @@ class labpageState extends State<labpage> {
               ),
             ],
           ),
-          Expanded(
-            child: Container(
+          
+            Container(
                 margin: EdgeInsets.only(left: 40, right: 30, top: 650),
                 //padding:EdgeInsets.only(top:8) ,
                 width: 310,
@@ -393,7 +393,7 @@ class labpageState extends State<labpage> {
                     // print('ffff');
                   },
                 )),
-          )
+          
         ],
       ),
       // bottomNavigationBar: BottomNavigationBar(
