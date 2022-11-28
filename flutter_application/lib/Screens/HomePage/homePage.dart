@@ -4,6 +4,7 @@ import '../../models/doctor.dart';
 import '../Dashboard.dart';
 import '../profile/components/bottomNavBar.dart';
 import '../profile/components/enums.dart';
+import 'allLabs/viewAll.dart';
 import 'components/LabsSection.dart';
 import 'components/SectionTitle.dart';
 import 'components/appBar.dart';
@@ -110,7 +111,7 @@ class _homeState extends State<homePage> {
               title: "Laboratories",
               press: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => Dashboard()));
+                    new MaterialPageRoute(builder: (context) => mainLab()));
               },
             ),
             FutureBuilder<List>(

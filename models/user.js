@@ -17,6 +17,9 @@ var userSchema = new Schema({
     },
     phone: {
         type: String,
+    },
+    image:{
+        type: String
     }
 })
 

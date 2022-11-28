@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application/Screens/profile/components/bottomNavBar.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:flutter_application/models/user.dart';
@@ -39,7 +40,7 @@ class _userAccount extends State<userAccount> {
   Dio dio = new Dio();
 
   Future updateUser(email, updateName, updatePassword, updatePhone) async {
-    print(email);
+    //print(email);
     try {
       return await dio.put(
         'http://10.0.2.2:3000/updateUserinfo/$email',
@@ -59,23 +60,27 @@ class _userAccount extends State<userAccount> {
     }
   }
 
-  Future upload() async {
+  /*Future upload() async {
     if (_file == null) return;
     String base64 = base64Encode(_file!.readAsBytesSync());
-  }
+  }*/
 
   //String userImage = User.getImage().toString();
-  File? _file;
+  File? image;
 
   Future pickerCamera(ImageSource imageSource) async {
-    final myfile = await ImagePicker().pickImage(source: imageSource);
-    setState(() {
-      _file = File(myfile!.path);
-      String imageName = _file!.path.split("/").last;
-      print("image name" + imageName);
-      User.setImage(imageName);
-      print("user image" + User.image);
-    });
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      //User.setImage(imageTemp.toString());
+      //print("ppp" + User.image);
+      setState(() {
+        this.image = imageTemp;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick Image: $e');
+    }
   }
 
   @override
@@ -105,27 +110,11 @@ class _userAccount extends State<userAccount> {
                         clipBehavior: Clip.none,
                         children: [
                           CircleAvatar(
-                            backgroundImage: User.getImage() != ""
-                                ? AssetImage("assets/images/avatar.png")
-                                    as ImageProvider
-                                : AssetImage(User.getImage()),
+                            backgroundImage: image != null
+                                ? FileImage(image!)
+                                : AssetImage("assets/images/avatar.png")
+                                    as ImageProvider,
                           ),
-                          /*Container(
-                            width: 200,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: User.getImage() != ""
-                                      ? AssetImage("assets/images/avatar.png")
-                                          as ImageProvider
-                                      : AssetImage(User.getImage()),
-
-                                  //Image.file(_file),
-                                  //image: AssetImage("assets/images/avatar.png"),
-                                  fit: BoxFit.fill),
-                            ),
-                          ),*/
                           Positioned(
                             right: -12,
                             bottom: 0,
@@ -238,8 +227,8 @@ class _userAccount extends State<userAccount> {
                     roundedButton(
                       text: "Update",
                       press: () {
-                        print(updatePassword);
-                        print(User.getEmail());
+                        //print(updatePassword);
+                        //print(User.getEmail());
                         updateUser(User.getEmail(), updateName, updatePassword,
                                 updatePhone)
                             .then((value) {

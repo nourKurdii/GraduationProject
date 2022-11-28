@@ -20,5 +20,12 @@ var testSchema = new Schema({
         type: String,
         require: true
     },
+    min:{
+        type: Number
+    },
+    max:{
+        type: Number
+    }
 
 })
+module.exports = mongoose.model('Test',testSchema)

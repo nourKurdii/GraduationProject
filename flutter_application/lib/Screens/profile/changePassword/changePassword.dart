@@ -6,6 +6,7 @@ import '../../../constants.dart';
 import '../../../models/user.dart';
 import '../../LogIn/components/RoundedPasswordField.dart';
 import '../../welcome/components/roundedButton.dart';
+import '../profileScreen.dart';
 
 class changePassword extends StatefulWidget {
   const changePassword({super.key});
@@ -42,25 +43,74 @@ class _changePassword extends State<changePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Change Password",
+          style: TextStyle(color: Colors.black),
+        ),
+        elevation: 1.5,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: kPrimaryColor,
+          onPressed: () {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => profileScreen()));
+          },
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
           child: Container(
         child: Padding(
           padding: const EdgeInsets.only(top: 50.0),
           child: Column(children: [
-            RoundedPasswordField(
-              textEditingCont: TextEditingController(text: ""),
-              onChange: (value) {
-                oldPassword = value;
+            TextField(
+              obscureText: true,
+              style: TextStyle(color: Colors.grey.shade500),
+              cursorColor: Colors.grey,
+              controller: TextEditingController(text: ""),
+              textAlign: TextAlign.end,
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text('Your Old Password',
+                      style: TextStyle(color: Colors.grey.shade500)),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.grey,
+                )),
+                //hintText: User.phone
+              ),
+              onChanged: (Value) {
+                oldPassword = Value;
               },
-              color: inputFieldBackground,
             ),
-            RoundedPasswordField(
-              textEditingCont: TextEditingController(text: ""),
-              onChange: (value) {
-                newPassword = value;   
-                             
+            TextField(
+              obscureText: true,
+              style: TextStyle(color: Colors.grey.shade500),
+              cursorColor: Colors.grey,
+              controller: TextEditingController(text: ""),
+              textAlign: TextAlign.end,
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text('Your New Password',
+                      style: TextStyle(color: Colors.grey.shade500)),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.grey,
+                )),
+                //hintText: User.phone
+              ),
+              onChanged: (Value) {
+                newPassword = Value;
               },
-              color: inputFieldBackground,
+            ),
+            SizedBox(
+              height: 20,
             ),
             roundedButton(
               text: "Update",

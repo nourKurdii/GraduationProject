@@ -5,7 +5,7 @@ var config = require('../config/dbconfig')
 var Lab = require('../models/lab')
 var Doctor = require('../models/doctor')
 var Order = require('../models/order')
-const order = require('../models/order')
+var Test = require('../models/test')
 
 var functions = {
 
@@ -26,7 +26,7 @@ var functions = {
                             password: req.body.password,
                             name: req.body.name,
                             phone: req.body.phone,
-                            image: req.body.image,
+                            image: "assets/images/avatar.png",
 
                         })
                         user.save().then((err) => {
@@ -35,13 +35,14 @@ var functions = {
                                 res.json(err)
                             } else {
                                 console.log(user)
-                                res.json(user)
+                               return res.json({success:true, msg:"signed up successfully"})
                             }
                         })
                     } else {
-                        res.json({
-                            message: 'email not available'
-                        })
+                        res.status(403).json({
+                            success: false,
+                            msg: "Unvalid Email" ,
+                          });
                     }
                 }
             })
@@ -175,7 +176,7 @@ var functions = {
             }
             )
            
-    },   
+    },     
     getReports: function(req,res){
         try{
         Order.aggregate([
@@ -196,7 +197,7 @@ var functions = {
             }
         }
         ]).then((data) => {
-            res.json(data);
+           return res.json(data);
 
         })
     }
@@ -300,7 +301,7 @@ var functions = {
     },  
     cancelOrder: function (req , res) {      
         Order.findOneAndUpdate(
-            { _id:req.params._id }, { status:"cancelled" },
+            { _id:req.params.id }, { status:"cancelled" },
              (error, data) => {
                 if (error) {
                     console.log(error);
@@ -310,7 +311,41 @@ var functions = {
             }
         )
         console.log("Order Cancelled succesfully");
-        return res.send({ success: true, msg: '"Order cancelled"' });
+        return res.send({ success: true, msg: "Order cancelled" });
+    },
+    getHomeVisits: function (req,res){
+        try{
+            Order.aggregate([
+                {
+                    $match: { 
+                        patientEmail: req.params.patientEmail,
+                       // homeVisit: true,
+                       homeVisit : true,
+                     },
+                    
+ 
+                },
+            
+                {
+                    
+                $lookup: {
+                    from: "labs",
+                    localField: "labEmail",
+                    foreignField: "email",
+                    as: "labInfo"
+                }
+            }
+            ]).then((data) => {
+                res.json(data);
+    
+            })
+        }
+                catch (error) {
+                    res.status(500).json({
+                      status: false,
+                      msg: "Error : " + error,
+                    });
+                  }
     },
 
 }

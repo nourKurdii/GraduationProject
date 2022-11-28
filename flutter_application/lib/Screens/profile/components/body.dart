@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/mainScreen/mainScreen.dart';
 import 'package:flutter_application/Screens/profile/changePassword/changePassword.dart';
 import 'package:flutter_application/Screens/profile/components/profileMenu.dart';
-import 'package:flutter_application/Screens/profile/components/profilePic.dart';
 
 import '../allBookings/allBookings.dart';
 import '../homeVisits/homeVisits.dart';
@@ -47,7 +46,7 @@ class body extends StatelessWidget {
           },
         ),
         profileMenu(
-          icon: "",
+          icon: "assets/images/UserIcon.svg",
           text: "Change password",
           press: () {
             Navigator.push(
@@ -80,7 +79,7 @@ class body extends StatelessWidget {
           },
         ),
         profileMenu(
-          icon: "assets/images/tube.svg",
+          icon: "assets/images/UserIcon.svg",
           text: "My test Bookings",
           press: () {
             Navigator.push(

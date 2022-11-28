@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/Screens/HomePage/allLabs/location.dart';
 
-import 'package:flutter_application/Screens/Dashboard.dart';
 import 'package:flutter_application/Screens/profile/profileScreen.dart';
 import 'package:flutter_application/constants.dart';
+import 'package:flutter_application/map/tempHome.dart';
 
 import 'Screens/mainScreen/mainScreen.dart';
 
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
         ),
-        //home: mainScreen());
-        home: profileScreen());
+        // home: mainScreen()
+        home: tempHome()
+        //home: location()
+        );
   }
 }
