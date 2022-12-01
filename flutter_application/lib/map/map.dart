@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../models/user.dart';
 
 class CurrentLocationScreen extends StatefulWidget {
   const CurrentLocationScreen({Key? key}) : super(key: key);
@@ -11,12 +15,35 @@ class CurrentLocationScreen extends StatefulWidget {
 }
 
 class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
+  Dio dio = new Dio();
+
+  savelocation(latitude, longitude, email) async {
+    try {
+      return await dio.put('http://10.0.2.2:3000/savelocation',
+          data: {
+            "email": email,
+            "latitude": latitude,
+            "longitude": longitude,
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
   late GoogleMapController googleMapController;
 
   static const CameraPosition initialCameraPosition = CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962), zoom: 14);
 
   Set<Marker> markers = {};
+  var point = LatLng(0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +103,18 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
                 ),
                 FloatingActionButton.extended(
                   heroTag: null,
-                  onPressed: () {},
+                  onPressed: () {
+                    savelocation(point.latitude, point.longitude, User.email)
+                        .then((val) {
+                      Fluttertoast.showToast(
+                          msg: 'Saved successfully',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: kPrimaryLightColor,
+                          textColor: Colors.black,
+                          fontSize: 16.0);
+                    });
+                  },
                   label: const Text("Submit"),
                   backgroundColor: kPrimaryColor,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Labsmap.dart';
 import 'categories.dart';
 
 class listView extends StatelessWidget {
@@ -21,8 +22,11 @@ class listView extends StatelessWidget {
               text: " Tests",
             )),
             Center(
-                child:
-                    categories(icon: 'assets/images/tube.svg', text: " Labs")),
+                child: GestureDetector(
+                    onTap: () {Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => labsMap()));},
+                    child: categories(
+                        icon: 'assets/images/tube.svg', text: " Labs"))),
             Center(
                 child: categories(
                     icon: 'assets/images/report.svg', text: " Tips  ")),

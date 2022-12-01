@@ -347,6 +347,34 @@ var functions = {
                     });
                   }
     },
+    savelocation: function (req , res) {
+        
+        User.findOneAndUpdate(
+            { email: req.body.email }, { latitude: req.body.latitude, longitude: req.body.longitude },
+             (error, data) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(data);
+                }
+            }
+        )
+        console.log("you are in updated function");
+        return res.send({ status: "updated" });
+    },  
+    getSpeceficLab: function(req,res){
+        console.log(req.body.id)
+
+        Lab.findOne({ _id: req.params.id }, (error, data) => {
+            if (error) {
+                console.log(req.params.id);
+                throw error;
+            }
+            //console.log(email)
+            console.log(data)
+            return res.json(data);
+        })
+    }
 
 }
 

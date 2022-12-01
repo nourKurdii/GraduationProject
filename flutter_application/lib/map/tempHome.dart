@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Screens/HomePage/Labsmap.dart';
 import 'map.dart';
 
 class tempHome extends StatefulWidget {
@@ -17,7 +18,7 @@ class _tempHome extends State<tempHome> {
           child: ElevatedButton(
       onPressed: () {
           Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => CurrentLocationScreen()));
+              context, new MaterialPageRoute(builder: (context) => labsMap()));
       },
       child: Text('Go To Map'),
     ),

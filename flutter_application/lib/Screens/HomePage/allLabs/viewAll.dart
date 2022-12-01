@@ -29,10 +29,10 @@ class mainLabState extends State<mainLab> {
           itemCount: 4,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {
+              /* onTap: () {
                 Navigator.push(context,
                     new MaterialPageRoute(builder: (context) => labpage()));
-              },
+              },*/
               child: Container(
                   constraints: BoxConstraints(minHeight: 122, maxHeight: 150),
                   decoration: BoxDecoration(

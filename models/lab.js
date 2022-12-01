@@ -36,6 +36,18 @@ var labSchema = new Schema({
     },
     rating: {
         type: Number,
+    },
+    openTime:{
+        type: String,
+    },
+    closeTime: {
+        type: String
+    },
+    ownerName: {
+        type: String
+    },
+    about:{
+        type: String
     }
 
 })
