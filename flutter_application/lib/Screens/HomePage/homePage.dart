@@ -95,7 +95,7 @@ class _homeState extends State<homePage> {
             ),
 
             //search
-            searchBar(),
+            // searchBar(),
             SizedBox(
               height: 15,
             ),
