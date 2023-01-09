@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,7 +86,7 @@ class _userAccount extends State<userAccount> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: const BottomNavBar(
         selectedMeu: MenuState.profile,
       ),
       body: SingleChildScrollView(
@@ -99,7 +97,7 @@ class _userAccount extends State<userAccount> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                  padding: EdgeInsets.all(50),
+                  padding: const EdgeInsets.all(50),
                   child: Form(
                       child: Column(children: [
                     SizedBox(
@@ -112,7 +110,7 @@ class _userAccount extends State<userAccount> {
                           CircleAvatar(
                             backgroundImage: image != null
                                 ? FileImage(image!)
-                                : AssetImage("assets/images/avatar.png")
+                                : const AssetImage("assets/images/avatar.png")
                                     as ImageProvider,
                           ),
                           Positioned(
@@ -126,7 +124,7 @@ class _userAccount extends State<userAccount> {
                                   child: TextButton(
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
-                                      backgroundColor: Color(0xfff5f6f9),
+                                      backgroundColor: const Color(0xfff5f6f9),
                                     ),
                                     onPressed: () {
                                       showModalBottomSheet<void>(
@@ -142,7 +140,7 @@ class _userAccount extends State<userAccount> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextField(
@@ -152,13 +150,13 @@ class _userAccount extends State<userAccount> {
                       textAlign: TextAlign.end,
                       decoration: InputDecoration(
                         prefixIcon: Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Text(
                             'Your Email',
                             style: TextStyle(color: Colors.grey.shade500),
                           ),
                         ),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                           color: Colors.grey,
                         )),
@@ -166,7 +164,7 @@ class _userAccount extends State<userAccount> {
                       ),
                       onChanged: (Value) {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     TextField(
@@ -176,11 +174,11 @@ class _userAccount extends State<userAccount> {
                       textAlign: TextAlign.end,
                       decoration: InputDecoration(
                         prefixIcon: Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Text('Your Full Name',
                               style: TextStyle(color: Colors.grey.shade500)),
                         ),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                           color: Colors.grey,
                         )),
@@ -190,7 +188,7 @@ class _userAccount extends State<userAccount> {
                         updateName = Value;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     TextField(
@@ -200,11 +198,11 @@ class _userAccount extends State<userAccount> {
                       textAlign: TextAlign.end,
                       decoration: InputDecoration(
                         prefixIcon: Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Text('Your Phone Number',
                               style: TextStyle(color: Colors.grey.shade500)),
                         ),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                           color: Colors.grey,
                         )),
@@ -214,7 +212,7 @@ class _userAccount extends State<userAccount> {
                         updatePhone = Value;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 150,
                     ),
                     RoundedPasswordField(
@@ -260,17 +258,17 @@ class _userAccount extends State<userAccount> {
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
       ),
       child: Column(
         children: [
-          Text(
+          const Text(
             "Choose Profile Photo",
             style: TextStyle(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -283,10 +281,10 @@ class _userAccount extends State<userAccount> {
                   onPressed: () {
                     pickerCamera(ImageSource.camera);
                   },
-                  icon: Icon(Icons.camera),
-                  label: (Text("Camera")),
+                  icon: const Icon(Icons.camera),
+                  label: (const Text("Camera")),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 TextButton.icon(
@@ -294,8 +292,8 @@ class _userAccount extends State<userAccount> {
                     onPressed: () {
                       pickerCamera(ImageSource.gallery);
                     },
-                    icon: Icon(Icons.image),
-                    label: Text("Gallery")),
+                    icon: const Icon(Icons.image),
+                    label: const Text("Gallery")),
               ],
             ),
           )

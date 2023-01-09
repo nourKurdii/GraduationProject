@@ -1,41 +1,45 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../models/user.dart';
+import '../Screens/HomePage/allLabs/booking/homeBookingScreen.dart';
 
 class CurrentLocationScreen extends StatefulWidget {
-  const CurrentLocationScreen({Key? key}) : super(key: key);
+  String labEmail;
+  List<String> unavailable;
+  CurrentLocationScreen(this.labEmail, this.unavailable, {super.key});
 
   @override
-  _CurrentLocationScreenState createState() => _CurrentLocationScreenState();
+  _CurrentLocationScreenState createState() =>
+      _CurrentLocationScreenState(labEmail, unavailable);
 }
 
 class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
   Dio dio = new Dio();
-
-  savelocation(latitude, longitude, email) async {
-    try {
-      return await dio.put('http://10.0.2.2:3000/savelocation',
-          data: {
-            "email": email,
-            "latitude": latitude,
-            "longitude": longitude,
-          },
-          options: Options(contentType: Headers.formUrlEncodedContentType));
-    } on DioError catch (e) {
-      Fluttertoast.showToast(
-          msg: e.response!.data['msg'],
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
+  String labEmail;
+  List<String> unavailable;
+  _CurrentLocationScreenState(this.labEmail, this.unavailable);
+  // savelocation(latitude, longitude, email) async {
+  //   try {
+  //     return await dio.put('http://10.0.2.2:3000/savelocation',
+  //         data: {
+  //           "email": email,
+  //           "latitude": latitude,
+  //           "longitude": longitude,
+  //         },
+  //         options: Options(contentType: HeademUrlEncodedContentType));
+  //   } on DioError catch (e) {
+  //     Fluttertoast.showToast(
+  //   msg: e.response!.data['msg'],
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //         fontSize: 16.0);
+  //   }
+  // }
 
   late GoogleMapController googleMapController;
 
@@ -43,13 +47,13 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
       target: LatLng(37.42796133580664, -122.085749655962), zoom: 14);
 
   Set<Marker> markers = {};
-  var point = LatLng(0, 0);
+  var point ;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Choose Your location",
+        title: const Text("Choose Your location",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -61,7 +65,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
         GoogleMap(
           initialCameraPosition: initialCameraPosition,
           markers: markers,
-          zoomControlsEnabled: false,
+          zoomControlsEnabled: true,
           mapType: MapType.normal,
           onMapCreated: (GoogleMapController controller) {
             googleMapController = controller;
@@ -84,6 +88,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
                           target: LatLng(position.latitude, position.longitude),
                           zoom: 14)),
                     );
+                    point = LatLng(position.latitude, position.longitude);
 
                     markers.clear();
 
@@ -98,22 +103,27 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
                   icon: const Icon(Icons.location_history),
                   backgroundColor: kPrimaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 FloatingActionButton.extended(
                   heroTag: null,
                   onPressed: () {
-                    savelocation(point.latitude, point.longitude, User.email)
-                        .then((val) {
-                      Fluttertoast.showToast(
-                          msg: 'Saved successfully',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: kPrimaryLightColor,
-                          textColor: Colors.black,
-                          fontSize: 16.0);
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeBookingScreen(labEmail,
+                                unavailable, point.latitude, point.longitude)));
+                    // savelocation(point.latitude, point.longitude, User.email)
+                    //     .then((val) {
+                    //   Fluttertoast.showToast(
+                    //       msg: 'Saved successfully',
+                    //       toastLength: Toast.LENGTH_SHORT,
+                    //       gravity: ToastGravity.BOTTOM,
+                    //       backgroundColor: kPrimaryLightColor,
+                    //       textColor: Colors.black,
+                    //       fontSize: 16.0);
+                    // });
                   },
                   label: const Text("Submit"),
                   backgroundColor: kPrimaryColor,

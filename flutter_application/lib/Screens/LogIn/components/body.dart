@@ -53,7 +53,7 @@ class _bodyState extends State<Signin> {
       print(name);
       //return jsonDecode(res.data);
       Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => homePage(name)));
+          context, MaterialPageRoute(builder: (context) => homePage(name)));
     } else
       return Future.error('error');
   }

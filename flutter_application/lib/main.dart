@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/HomePage/allLabs/location.dart';
-
-import 'package:flutter_application/Screens/profile/profileScreen.dart';
 import 'package:flutter_application/constants.dart';
-import 'package:flutter_application/map/tempHome.dart';
-
 import 'Screens/mainScreen/mainScreen.dart';
 
 void main() {

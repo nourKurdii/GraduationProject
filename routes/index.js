@@ -25,5 +25,9 @@ router.get('/getBookings/:patientEmail',actions.getBookings)
 router.get('/getHomeVisits/:patientEmail',actions.getHomeVisits)
 router.put('/cancelOrder/:id',actions.cancelOrder)
 router.get('/getSpeceficLab/:id',actions.getSpeceficLab)
+router.get('/getTestCat/:testName',actions.getTestCat)
+router.get('/getTestInfo/:testName',actions.getTestInfo)
+router.get('/getTestBool/:testName',actions.getTestBool)
+router.post('/addLabOrder',actions.addLabOrder)
 
 module.exports = router

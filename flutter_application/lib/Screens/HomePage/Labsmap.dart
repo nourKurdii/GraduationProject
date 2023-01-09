@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_application/constants.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 
-import 'allLabs/labPage.dart';
+import 'allLabs/labPage/labPage.dart';
 
 class labsMap extends StatefulWidget {
   const labsMap({super.key});
@@ -41,7 +39,7 @@ class _labsMap extends State<labsMap> {
   Set<Marker> markers = {};
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-  LatLng point = LatLng(0, 0);
+  LatLng point = const LatLng(0, 0);
   @override
   void dispose() {
     _customInfoWindowController.dispose();
@@ -57,7 +55,7 @@ class _labsMap extends State<labsMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Labs",
+        title: const Text("All Labs",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -72,7 +70,7 @@ class _labsMap extends State<labsMap> {
               if (snapshot.hasError) {
                 print(snapshot.error);
                 print("no Data");
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasData) {
                 var length = (snapshot.data as dynamic).length;
                 for (var i = 0; i < length; i++) {
@@ -102,14 +100,14 @@ class _labsMap extends State<labsMap> {
                                               snapshot.data[i]['image']),
                                           fit: BoxFit.fitWidth,
                                           filterQuality: FilterQuality.high),
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(10),
                                       ),
                                       //color: Colors.red
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 10, left: 10, right: 10),
                                     child: Row(
                                       children: [
@@ -121,8 +119,9 @@ class _labsMap extends State<labsMap> {
                                                   context,
                                                   new MaterialPageRoute(
                                                       builder: (context) =>
-                                                          labpage(snapshot
-                                                              .data[i]['_id'])));
+                                                          labpage(
+                                                              snapshot.data[i]
+                                                                  ['_id'])));
                                             },
                                             child: Text(
                                               snapshot.data[i]['name'],
@@ -132,14 +131,14 @@ class _labsMap extends State<labsMap> {
                                             ),
                                           ),
                                         ),
-                                        Spacer(),
-                                        Text("Ratting " +
+                                        const Spacer(),
+                                        Text("Ratting: " +
                                             snapshot.data[i]['rating']
                                                 .toString())
                                       ],
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(
                                         top: 10, left: 10, right: 10),
                                     child: Text(
@@ -190,7 +189,7 @@ class _labsMap extends State<labsMap> {
                   ],
                 );
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             })),
       ]),

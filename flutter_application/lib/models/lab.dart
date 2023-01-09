@@ -1,5 +1,7 @@
+import 'package:objectid/objectid.dart';
+
 class lab {
-  String? id;
+  String id = "";
   String name = "";
   String email = "";
   String openTime = "";
@@ -13,6 +15,7 @@ class lab {
   bool homeVisit = false;
   String closeTime = "";
   String phone = "";
+  List? unavailable;
 
   lab(
       this.id,
@@ -22,12 +25,14 @@ class lab {
       this.longitude,
       this.rating,
       this.test,
+      this.unavailable,
       this.openTime,
       this.ownerName,
       this.closeTime,
       this.about,
       this.homeVisit);
   lab.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
     name = json['name'];
     phone = json['phone'];
     about = json['about'];
@@ -38,5 +43,7 @@ class lab {
     openTime = json['openTime'];
     closeTime = json['closeTime'];
     email = json['email'];
+    test = json['test'].cast<String>();
+    unavailable = json['unavailableTime'].cast<String>();
   }
 }

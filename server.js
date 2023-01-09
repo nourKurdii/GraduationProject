@@ -12,7 +12,12 @@ const app = express()
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
-app.use(cors())
+app.use(cors({
+    origin:'*',
+    methods:
+    ['PUT','POST','GET','DELETE'],
+    credentials:true
+}))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(routes)

@@ -11,21 +11,30 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../models/user.dart';
+import '../../../profile/components/bottomNavBar.dart';
+import '../../../profile/components/enums.dart';
 
-class LabBookingScreen extends StatefulWidget {
+class HomeBookingScreen extends StatefulWidget {
   String labEmail;
   List<String> unavailable;
-  LabBookingScreen(this.labEmail, this.unavailable, {super.key});
+  double longitude;
+  double latitude;
+  HomeBookingScreen(
+      this.labEmail, this.unavailable, this.latitude, this.longitude,
+      {super.key});
 
   @override
-  State<LabBookingScreen> createState() =>
-      _LabBookingScreen(labEmail, unavailable);
+  State<HomeBookingScreen> createState() =>
+      _HomeBookingScreen(labEmail, unavailable, latitude, longitude);
 }
 
-class _LabBookingScreen extends State<LabBookingScreen> {
+class _HomeBookingScreen extends State<HomeBookingScreen> {
   String labEmail;
   List<String> unavailable;
-  _LabBookingScreen(this.labEmail, this.unavailable);
+  double longitude;
+  double latitude;
+  _HomeBookingScreen(
+      this.labEmail, this.unavailable, this.latitude, this.longitude);
   final List<String> allTimes = <String>[
     'sunday 9:00-9:30',
     'sunday 9:30-10:00',
@@ -98,6 +107,8 @@ class _LabBookingScreen extends State<LabBookingScreen> {
 
   @override
   void initState() {
+    print(latitude);
+    print(longitude);
     available.clear();
     available = allTimes
         .toSet()
@@ -142,6 +153,9 @@ class _LabBookingScreen extends State<LabBookingScreen> {
         centerTitle: true,
       ),
       backgroundColor: const Color.fromARGB(255, 233, 227, 243),
+      bottomNavigationBar: const BottomNavBar(
+        selectedMeu: MenuState.home,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,7 +236,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                               });
                             },
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               width: 100,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -342,8 +356,8 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                                     selected_h,
                                     DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now()),
-                                    0,
-                                    0);
+                                    latitude,
+                                    longitude);
                               }
 
                               Fluttertoast.showToast(
@@ -356,6 +370,8 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                                   .format(DateTime.now()));
                               print(testData);
                               print(labEmail);
+                              print(latitude);
+                              print(longitude);
                             }
                             // print((selectedTime.value)?.format(context));
                           },

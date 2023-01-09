@@ -48,6 +48,9 @@ var labSchema = new Schema({
     },
     about:{
         type: String
+    },
+    unavailanleTime:{
+        type: Array
     }
 
 })

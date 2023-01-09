@@ -11,7 +11,6 @@ import 'components/appBar.dart';
 import 'components/card.dart';
 import 'components/doctorCard.dart';
 import 'components/listView.dart';
-import 'components/searchBar.dart';
 import '../../../size_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -73,11 +72,11 @@ class _homeState extends State<homePage> {
     SizeConfig().init(context);
 
     return Scaffold(
-      bottomNavigationBar: BottomNavBar(selectedMeu: MenuState.home),
+      bottomNavigationBar: const BottomNavBar(selectedMeu: MenuState.home),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 45,
             ),
             //app bar
@@ -85,24 +84,24 @@ class _homeState extends State<homePage> {
 
             appBar(
               icon: Icons.person,
-              name: this.name,
+              name: name,
             ),
 
             //Card
-            card(),
-            SizedBox(
+            const card(),
+            const SizedBox(
               height: 15,
             ),
 
             //search
             // searchBar(),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
 
             //horizontal listview tests categories
-            listView(),
-            SizedBox(
+            const listView(),
+            const SizedBox(
               height: 15,
             ),
 
@@ -111,7 +110,7 @@ class _homeState extends State<homePage> {
               title: "Laboratories",
               press: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => mainLab()));
+                     MaterialPageRoute(builder: (context) => mainLab()));
               },
             ),
             FutureBuilder<List>(
@@ -120,7 +119,7 @@ class _homeState extends State<homePage> {
                 if (snapshot.hasError) {
                   print(snapshot.error);
                   print("no Data");
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasData) {
                   //print(snapshot.data);
 
@@ -135,19 +134,19 @@ class _homeState extends State<homePage> {
                                   Image: snapshot.data[index]['image'],
                                   Location: snapshot.data[index]['location'],
                                 )),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       ],
                     ),
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
 
@@ -156,10 +155,10 @@ class _homeState extends State<homePage> {
               title: "Doctors",
               press: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => Dashboard()));
+                    new MaterialPageRoute(builder: (context) => const Dashboard()));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -169,7 +168,7 @@ class _homeState extends State<homePage> {
                 if (snapshot.hasError) {
                   print(snapshot.error);
                   print("no Data");
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasData) {
                   //print(snapshot.data);
 
@@ -179,19 +178,19 @@ class _homeState extends State<homePage> {
                       children: [
                         ...List.generate(demoDoctor.length,
                             (index) => doctorCard(d: demoDoctor[index])),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       ],
                     ),
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
           ],

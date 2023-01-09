@@ -30,7 +30,6 @@ class _bodyState extends State<Signup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     emailControl.text = User.getEmail();
     nameControl.text = User.getName();
@@ -60,160 +59,157 @@ class _bodyState extends State<Signup> {
     return Scaffold(
       body: background(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/tube.jpg", width: size.width * 0.15),
-                Container(
-                    child: Form(
-                        key: _formKey,
-                        child: Column(children: [
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 0.05),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Use your details to create new account!",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 0.04,
-                                color: Colors.black),
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          RounedInputField(
-                            textEditingCont: emailControl,
-                            color: inputFieldBackground,
-                            icon: Icons.person,
-                            hintText: "Your Email",
-                            onChanged: ((value) => {
-                                  User.setEmail(value),
-                                }),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            width: size.width * 0.8,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
-                                color: inputFieldBackground,
-                                borderRadius: BorderRadius.circular(29)),
-                            child: TextFormField(
-                              controller: (nameControl),
-                              onChanged: ((value) => {User.setName(value)}),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  icon: Icon(
-                                    Icons.perm_identity,
-                                    color: kPrimaryColor,
-                                  ),
-                                  hintText: "Your Full Name"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/tube.jpg", width: size.width * 0.15),
+              Form(
+                  key: _formKey,
+                  child: Column(children: [
+                    Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.width * 0.05),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Use your details to create new account!",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.width * 0.04,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    RounedInputField(
+                      textEditingCont: emailControl,
+                      color: inputFieldBackground,
+                      icon: Icons.person,
+                      hintText: "Your Email",
+                      onChanged: ((value) => {
+                            User.setEmail(value),
+                          }),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      width: size.width * 0.8,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: inputFieldBackground,
+                          borderRadius: BorderRadius.circular(29)),
+                      child: TextFormField(
+                        controller: (nameControl),
+                        onChanged: ((value) => {User.setName(value)}),
+                        decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.perm_identity,
+                              color: kPrimaryColor,
                             ),
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Container(
-                            width: size.width * 0.8,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: inputFieldBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color(0xffeeeeee),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 4))
-                              ],
-                              borderRadius: BorderRadius.circular(27),
-                              //border: Border.all(color: kPrimaryColor)
-                            ),
-                            child: Stack(
-                              children: [
-                                InternationalPhoneNumberInput(
-                                  onInputChanged: (PhoneNumber number) {
-                                    User.setPhone(
-                                        number.phoneNumber!.toString());
-                                  },
-                                  cursorColor: Colors.black,
-                                  formatInput: false,
-                                  selectorConfig: SelectorConfig(
-                                      selectorType:
-                                          PhoneInputSelectorType.BOTTOM_SHEET),
-                                  inputDecoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 15, left: 0),
-                                      border: InputBorder.none,
-                                      hintText: 'Phone Number',
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey.shade400,
-                                          fontSize: 15.7)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          RoundedPasswordField(
-                            textEditingCont: passwordControl,
-                            onChange: (value) {
-                              User.setPassword(value);
+                            hintText: "Your Full Name"),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      width: size.width * 0.8,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: inputFieldBackground,
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Color(0xffeeeeee),
+                              blurRadius: 10,
+                              offset: Offset(0, 4))
+                        ],
+                        borderRadius: BorderRadius.circular(27),
+                        //border: Border.all(color: kPrimaryColor)
+                      ),
+                      child: Stack(
+                        children: [
+                          InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              User.setPhone(
+                                  number.phoneNumber!.toString());
                             },
-                            color: inputFieldBackground,
+                            cursorColor: Colors.black,
+                            formatInput: false,
+                            selectorConfig: const SelectorConfig(
+                                selectorType:
+                                    PhoneInputSelectorType.BOTTOM_SHEET),
+                            inputDecoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.only(bottom: 15, left: 0),
+                                border: InputBorder.none,
+                                hintText: 'Phone Number',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.shade400,
+                                    fontSize: 15.7)),
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          roundedButton(
-                            text: "SIGN UP",
-                            press: () {
-                              if (_formKey.currentState!.validate()) {
-                                print("ok");
-                                addUser();
-                                Fluttertoast.showToast(
-                                    msg: "Signed Up Successfully",
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.BOTTOM,
-                                    backgroundColor: kPrimaryLightColor,
-                                    textColor: Colors.black);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return homePage(User.name);
-                                    },
-                                  ),
-                                );
-                              } else {
-                                print("not Ok");
-                              }
-                            },
-                            color: kPrimaryColor,
-                            textColor: Colors.white,
-                          ),
-                          alreadyHaveAnAccountCheck(
-                              login: false,
-                              press: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return LogInScreen();
-                                    },
-                                  ),
-                                );
-                              }),
-                        ]))),
-              ],
-            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    RoundedPasswordField(
+                      textEditingCont: passwordControl,
+                      onChange: (value) {
+                        User.setPassword(value);
+                      },
+                      color: inputFieldBackground,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    roundedButton(
+                      text: "SIGN UP",
+                      press: () {
+                        if (_formKey.currentState!.validate()) {
+                          print("ok");
+                          addUser();
+                          Fluttertoast.showToast(
+                              msg: "Signed Up Successfully",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: kPrimaryLightColor,
+                              textColor: Colors.black);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return homePage(User.name);
+                              },
+                            ),
+                          );
+                        } else {
+                          print("not Ok");
+                        }
+                      },
+                      color: kPrimaryColor,
+                      textColor: Colors.white,
+                    ),
+                    alreadyHaveAnAccountCheck(
+                        login: false,
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LogInScreen();
+                              },
+                            ),
+                          );
+                        }),
+                  ])),
+            ],
           ),
         ),
       ),

@@ -1,16 +1,11 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/profile/allBookings/speceficBooking.dart';
 import 'package:flutter_application/Screens/profile/profileScreen.dart';
-import 'package:flutter_application/models/orders.dart';
-
 import '../../../constants.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../models/user.dart';
-import '../../reports/reportSection.dart';
 import 'components/bookingSection.dart';
 
 class allBookings extends StatefulWidget {
@@ -23,7 +18,6 @@ class allBookings extends StatefulWidget {
 class _allBookings extends State<allBookings> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -61,22 +55,23 @@ class _allBookings extends State<allBookings> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "My Bookings",
           style: TextStyle(color: Colors.black),
         ),
         elevation: 1.5,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: kPrimaryColor,
           onPressed: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => profileScreen()));
+                MaterialPageRoute(builder: (context) => const profileScreen()));
           },
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
+      // ignore: sized_box_for_whitespace
       body: Container(
         height: size.height,
         width: double.infinity,
@@ -88,76 +83,74 @@ class _allBookings extends State<allBookings> {
                 if (snapshot.hasError) {
                   print(snapshot.error);
                   //print("no Data");
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasData) {
                   //print(snapshot.data);
                   var length = (snapshot.data as dynamic).length;
                   if (length == 0) {
-                    return Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 80,
+                    return SingleChildScrollView(
+                      child: Column(
+                        //mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 50,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 50,
+                            child: Container(
+                              height: size.height * 0.18,
+                              width: size.width,
+                              padding: const EdgeInsets.all(30),
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 235, 222, 250),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Image.asset(
+                                "assets/images/homeLocation.png",
                               ),
-                              child: Container(
-                                height: size.height * 0.18,
-                                width: size.width,
-                                padding: EdgeInsets.all(30),
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 235, 222, 250),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Image.asset(
-                                  "assets/images/homeLocation.png",
-                                ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text(
+                            "No Test Bookings Yet",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.35,
+                            height: 43,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2,
+                                        ))),
+                              ),
+                              onPressed: () {},
+                              child: const Text(
+                                "Go to Book Test",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "No Test Bookings Yet",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            
-                            SizedBox(
-                              height: 32,
-                            ),
-                            Container(
-                              width: size.width * 0.35,
-                              height: 43,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                          side: BorderSide(
-                                            color: kPrimaryColor,
-                                            width: 2,
-                                          ))),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  "Go to Book Test",
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     );
                   }
@@ -175,23 +168,17 @@ class _allBookings extends State<allBookings> {
                             labName: "",
                             id: snapshot.data[index]['_id'],
                             status: snapshot.data[index]['status'],
-                            press: () {
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) => speceficBooking(
-                                          snapshot.data[index]['_id'])));
-                            },
+                            
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       ],
                     ),
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
             ),

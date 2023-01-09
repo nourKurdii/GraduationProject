@@ -36,8 +36,8 @@ var orderSchema = new Schema({
     rating:{
         type:Number,
     },
-    durationTime:{
-        type:Number,
+    homeVisit:{
+        type:Boolean
     }
 })
 module.exports = mongoose.model('Order', orderSchema)

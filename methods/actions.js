@@ -268,13 +268,14 @@ var functions = {
                 {
                     $match: { 
                         patientEmail: req.params.patientEmail,
+                        //status : "pending"
                         $nor: [
+                            {status: "finished"},
+                            {status:"ratted"},
                             {status: "cancelled"}
-                         ]
-                    
+
+                         ]                  
                      },
-                    
- 
                 },
             
                 {
@@ -321,6 +322,7 @@ var functions = {
                         patientEmail: req.params.patientEmail,
                        // homeVisit: true,
                        homeVisit : true,
+                       status : "finished"
                      },
                     
  
@@ -374,7 +376,66 @@ var functions = {
             console.log(data)
             return res.json(data);
         })
+    },
+    getSpeceficLabTests: function(req,res){       
+    },
+    getTestCat: function(req,res){
+        Test.findOne({ name: req.params.testName }, (error, data) => {
+            if (error) {
+                console.log(req.params.testName);
+                throw error;
+            }
+            //console.log(email)
+            console.log(data.category)
+            return res.json(data.category);
+        })
+    },
+    getTestInfo: function(req,res){
+        Test.findOne({ name: req.params.testName }, (error, data) => {
+            if (error) {
+                console.log(req.params.testName);
+                throw error;
+            }
+            //console.log(email)
+            console.log(data)
+            return res.json(data);
+        })
+    },
+    getTestBool: function(req,res){
+        Test.findOne({ name: req.params.testName }, (error, data) => {
+            if (error) {
+                console.log(req.params.testName);
+                throw error;
+            }
+            //console.log(email)
+            console.log(data.homeVisit)
+            return res.json(data.homeVisit);
+        })
+    },
+    addLabOrder: function(req,res){
+        var neworder = Order({
+            patientEmail: req.body.patientEmail,
+            labEmail: req.body.labEmail,
+            testName: req.body.test,
+            time: req.body.time,
+            date:req.body.date,
+            latitude: req.body.latitude,
+            longitude:req.body.longitude,
+            status:"pending",
+            rating: 0,
+            homeVisit: false,
+
+        });
+        neworder.save(function (err, neworder) {
+            if (err) {
+                res.send({ success: false, msg: 'Failed to save' })
+            }
+            else {
+                res.send({ success: true, msg: 'Successfully saved' })
+            }
+        })
     }
+
 
 }
 

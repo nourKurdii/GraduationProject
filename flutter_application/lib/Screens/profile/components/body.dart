@@ -15,20 +15,20 @@ class body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(children: [
-        SizedBox(
-          height: 115,
-          width: 115,
-          child: Stack(
-            fit: StackFit.expand,
-            clipBehavior: Clip.none,
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage("assets/images/avatar.png"),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
+        // SizedBox(
+        //   height: 115,
+        //   width: 115,
+        //   child: Stack(
+        //     fit: StackFit.expand,
+        //     clipBehavior: Clip.none,
+        //     children: [
+        //       CircleAvatar(
+        //         backgroundImage: AssetImage("assets/images/avatar.png"),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        const SizedBox(
           height: 20,
         ),
         profileMenu(
@@ -39,7 +39,7 @@ class body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return userAccount();
+                  return const userAccount();
                 },
               ),
             );
@@ -53,7 +53,7 @@ class body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return changePassword();
+                  return const changePassword();
                 },
               ),
             );
@@ -72,7 +72,7 @@ class body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return homeVisits();
+                  return const homeVisits();
                 },
               ),
             );
@@ -86,7 +86,7 @@ class body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return allBookings();
+                  return const allBookings();
                 },
               ),
             );
@@ -100,7 +100,7 @@ class body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return mainScreen();
+                  return const mainScreen();
                 },
               ),
             );

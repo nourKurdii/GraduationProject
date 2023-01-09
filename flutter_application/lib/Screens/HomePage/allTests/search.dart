@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/HomePage/allLabs/labPage.dart';
+import 'package:flutter_application/Screens/HomePage/allLabs/labPage/labPage.dart';
 
 import '../../../constants.dart';
 import 'API_services.dart';
