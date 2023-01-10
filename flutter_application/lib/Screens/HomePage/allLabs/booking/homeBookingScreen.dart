@@ -94,11 +94,12 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
         data: {
           "patientEmail": patientEmail,
           "labEmail": labEmail,
-          "test": test,
+          "testName": test,
           "time": time,
           "date": date,
           "latitude": latitude,
           "longitude": longitude,
+          "homeVisit": true
         },
         options: Options(contentType: Headers.formUrlEncodedContentType));
   }
@@ -358,6 +359,7 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                                         .format(DateTime.now()),
                                     latitude,
                                     longitude);
+                                print(testData[i]);
                               }
 
                               Fluttertoast.showToast(

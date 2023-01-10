@@ -413,17 +413,29 @@ var functions = {
         })
     },
     addLabOrder: function(req,res){
+        console.log(req.body.patientEmail);
+        console.log(req.body.labEmail);
+        console.log(req.body.testName);
+        console.log(req.body.time);
+        console.log(req.body.date);
+        console.log(req.body.latitude);
+        console.log(req.body.longitude);
+
+        if ((!req.body.patientEmail) ||(!req.body.labEmail) || (!req.body.testName)|| (!req.body.time)||
+         (!req.body.date) || (!req.body.latitude) || (!req.body.longitude)) {
+            res.json({ success: false, msg: 'Enter all fields' })
+        }
         var neworder = Order({
             patientEmail: req.body.patientEmail,
             labEmail: req.body.labEmail,
-            testName: req.body.test,
+            testName: req.body.testName,
             time: req.body.time,
             date:req.body.date,
             latitude: req.body.latitude,
             longitude:req.body.longitude,
             status:"pending",
             rating: 0,
-            homeVisit: false,
+            homeVisit: req.body.homeVisit,
 
         });
         neworder.save(function (err, neworder) {

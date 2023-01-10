@@ -85,11 +85,12 @@ class _LabBookingScreen extends State<LabBookingScreen> {
         data: {
           "patientEmail": patientEmail,
           "labEmail": labEmail,
-          "test": test,
+          "testName": test,
           "time": time,
           "date": date,
           "latitude": latitude,
           "longitude": longitude,
+          "homeVisit": false
         },
         options: Options(contentType: Headers.formUrlEncodedContentType));
   }
@@ -342,8 +343,8 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                                     selected_h,
                                     DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now()),
-                                    0,
-                                    0);
+                                    0.0,
+                                    0.0);
                               }
 
                               Fluttertoast.showToast(

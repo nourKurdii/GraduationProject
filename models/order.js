@@ -13,7 +13,7 @@ var orderSchema = new Schema({
         require: true,
         ref: 'Lab'
     },
-    test:{
+    testName:{
         type:String,
         require: true
     },
@@ -26,11 +26,11 @@ var orderSchema = new Schema({
         require:true
     },
     latitude:{
-        type:String,
+        type:Number,
         require:true
     },
     longitude:{
-        type:String,
+        type:Number,
         require:true
     },
     rating:{
