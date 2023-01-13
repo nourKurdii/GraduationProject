@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-Dio dio = new Dio();
+Dio dio =  Dio();
 
 cancelOrder(id) async {
   print(id);
@@ -123,13 +123,7 @@ class bookingCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "Lab Name : $labName",
-                          ),
-                        ],
-                      ),
+                      
                       const SizedBox(
                         height: 5,
                       ),
@@ -170,50 +164,7 @@ class bookingCard extends StatelessWidget {
     ));
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      style: TextButton.styleFrom(
-        primary: Colors.black,
-      ),
-      child: const Text("لا"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      style: TextButton.styleFrom(
-        primary: Colors.black,
-      ),
-      child: const Text("نعم"),
-      onPressed: () {
-        cancelOrder(id);
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => SelectService(name: name)));
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      //title: Text("AlertDialog"),
-      backgroundColor: const Color.fromARGB(255, 248, 241, 145),
-
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      content: const Text("هل انت متأكد؟"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  
 
   Widget bottomsheet(BuildContext context) {
     return Container(

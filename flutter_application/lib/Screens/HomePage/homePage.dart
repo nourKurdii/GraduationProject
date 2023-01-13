@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, camel_case_types, no_logic_in_create_state, library_private_types_in_public_api, avoid_print, file_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../models/doctor.dart';
@@ -18,7 +20,7 @@ import 'package:dio/dio.dart';
 class homePage extends StatefulWidget {
   var name;
 
-  homePage(this.name);
+  homePage(this.name, {super.key});
 
   @override
   _homeState createState() => _homeState(name);
@@ -27,14 +29,15 @@ class homePage extends StatefulWidget {
 Future<List> fetchLab() async {
   try {
     var res = await http.get(
-      Uri.parse("http://10.0.2.2:3000/getLabInfo"),
+      Uri.parse("http://10.0.2.2:3000/topThreeLabs"),
     );
     if (res.statusCode == 200) {
-      var obj = jsonDecode(res.body);
+      //var obj = jsonDecode(res.body);
       //print(obj);
       return jsonDecode(res.body);
-    } else
+    } else {
       return Future.error('error');
+    }
   } catch (error) {
     return Future.error(error);
   }
@@ -46,11 +49,12 @@ Future<List> fetchDoctor() async {
       Uri.parse("http://10.0.2.2:3000/getDoctorInfo"),
     );
     if (res.statusCode == 200) {
-      var obj = jsonDecode(res.body);
+      // var obj = jsonDecode(res.body);
       //print(obj);
       return jsonDecode(res.body);
-    } else
+    } else {
       return Future.error('error');
+    }
   } catch (error) {
     return Future.error(error);
   }
@@ -62,7 +66,6 @@ class _homeState extends State<homePage> {
   _homeState(this.name);
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {});
   }
@@ -107,10 +110,10 @@ class _homeState extends State<homePage> {
 
             //labs list
             SectionTitle(
-              title: "Laboratories",
+              title: "Top Three Labs",
               press: () {
                 Navigator.push(context,
-                     MaterialPageRoute(builder: (context) => mainLab()));
+                    MaterialPageRoute(builder: (context) => const mainLab()));
               },
             ),
             FutureBuilder<List>(
@@ -131,8 +134,8 @@ class _homeState extends State<homePage> {
                             (snapshot.data as dynamic).length,
                             (index) => LabsSection(
                                   name: snapshot.data[index]['name'],
-                                  Image: snapshot.data[index]['image'],
-                                  Location: snapshot.data[index]['location'],
+                                  Image: "assets/images/lab1.jpg",
+                                  Location: snapshot.data[index]['rating'].toString(),
                                 )),
                         const SizedBox(
                           width: 10,
@@ -155,7 +158,7 @@ class _homeState extends State<homePage> {
               title: "Doctors",
               press: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => const Dashboard()));
+                    MaterialPageRoute(builder: (context) => const Dashboard()));
               },
             ),
             const SizedBox(

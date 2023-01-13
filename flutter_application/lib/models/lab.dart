@@ -1,5 +1,3 @@
-import 'package:objectid/objectid.dart';
-
 class lab {
   String id = "";
   String name = "";
@@ -7,7 +5,7 @@ class lab {
   String openTime = "";
   double latitude = 0.0;
   double longitude = 0.0;
-  int rating = 0;
+  double rating = 0.0;
   String location = "";
   String ownerName = "";
   String about = "";
@@ -35,6 +33,7 @@ class lab {
     id = json['_id'];
     name = json['name'];
     phone = json['phone'];
+    rating = json['rating'];
     about = json['about'];
     latitude = json['latitude'];
     longitude = json['longitude'];

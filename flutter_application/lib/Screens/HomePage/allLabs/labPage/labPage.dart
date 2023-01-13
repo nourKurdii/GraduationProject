@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print, no_logic_in_create_state, prefer_typing_uninitialized_variables, camel_case_types, must_be_immutable, file_names
+
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../../profile/components/bottomNavBar.dart';
 import '../../../profile/components/enums.dart';
@@ -38,21 +41,22 @@ class labpageState extends State<labpage> {
         setState(() {
           res;
         });
-        var obj = jsonDecode(res.body);
+        //var obj = jsonDecode(res.body);
         // print("on future");
         //print(obj);
         //print(lab.fromJson(obj));
         //print(lab.fromJson(obj).name);
         return jsonDecode(res.body);
-      } else
+      } else {
         return Future.error('error');
+      }
     } catch (error) {
       return Future.error(error);
     }
   }
 
   var testName;
-  Dio dio = new Dio();
+  Dio dio = Dio();
 
   // getTestCat(testName) async {
   //   try {
@@ -102,16 +106,15 @@ class labpageState extends State<labpage> {
       body: FutureBuilder<Object>(
           future: getSpeceficLab(),
           builder: ((context, AsyncSnapshot snapshot) {
-            var data = snapshot.data;
             if (snapshot.hasError) {
               print(snapshot.error);
               print("no Data");
               return const CircularProgressIndicator();
             } else if (snapshot.hasData) {
               testsList.clear();
-              var length = (snapshot.data as dynamic).length;
               //print(length);
               //print((lab.fromJson(snapshot.data).test)!.length);
+
               var testsLength =
                   (lab.fromJson(snapshot.data).test as dynamic).length;
               for (int j = 0; j < testsLength; j++) {
@@ -284,34 +287,18 @@ class labpageState extends State<labpage> {
                                           padding: const EdgeInsets.only(
                                               top: 14, left: 38),
                                           child: Row(children: [
-                                            RatingBar.builder(
-                                              initialRating: 0,
-                                              minRating: 1,
-                                              itemSize: 25,
-                                              // allowHalfRating: true,
-                                              itemCount: 5,
-                                              itemPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 4.0),
-                                              itemBuilder: (context, _) =>
-                                                  const Icon(
-                                                Icons.star,
-                                                color: Colors.amber,
-                                              ),
-                                              onRatingUpdate: (rating) {
-                                                print(rating);
-                                              },
-                                            ),
-                                          ])),
-                                      Container(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, left: 75),
-                                          child: Row(children: const [
-                                            Text("Rating us!",
-                                                style: TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Raleway'))
+                                            RatingBarIndicator(
+                                                rating: (lab
+                                                        .fromJson(snapshot.data)
+                                                        .rating)
+                                                    .toDouble(),
+                                                itemCount: 5,
+                                                itemSize: 30.0,
+                                                itemBuilder: (context, _) =>
+                                                    const Icon(
+                                                      Icons.star,
+                                                      color: kPrimaryColor,
+                                                    ))
                                           ])),
                                     ],
                                   ))
@@ -378,7 +365,7 @@ class labpageState extends State<labpage> {
                                             const SizedBox(height: 25),
                                             InkWell(
                                               child: const Text(
-                                                  'Dr.' + 'Vina Belgium',
+                                                  'Dr.' 'Vina Belgium',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -551,8 +538,9 @@ class labpageState extends State<labpage> {
                             ),
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomeTests(homeVisitTests,lab.fromJson(snapshot.data).email,
+                                  builder: (context) => HomeTests(
+                                      homeVisitTests,
+                                      lab.fromJson(snapshot.data).email,
                                       lab.fromJson(snapshot.data).unavailable
                                           as dynamic)));
                             },

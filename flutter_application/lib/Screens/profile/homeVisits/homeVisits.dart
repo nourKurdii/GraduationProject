@@ -1,6 +1,6 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print, camel_case_types, file_names
 
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/profile/homeVisits/speceficHomeVisit.dart';
 
@@ -18,9 +18,6 @@ class homeVisits extends StatefulWidget {
 }
 
 class _homeVisits extends State<homeVisits> {
-  @override
-  var dio = Dio();
-
   Future<List> getHomeVisits(userEmail) async {
     try {
       var res = await http
@@ -31,8 +28,9 @@ class _homeVisits extends State<homeVisits> {
         var obj = json.decode(res.body);
         print(obj);
         return json.decode(res.body);
-      } else
+      } else {
         return Future.error('error');
+      }
     } catch (error) {
       return Future.error(error);
     }
@@ -42,23 +40,23 @@ class _homeVisits extends State<homeVisits> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "My Home Visits",
           style: TextStyle(color: Colors.white),
         ),
         elevation: 1.5,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => profileScreen()));
+                MaterialPageRoute(builder: (context) => const profileScreen()));
           },
         ),
         centerTitle: true,
         backgroundColor: kPrimaryColor,
       ),
-      body: Container(
+      body: SizedBox(
         height: size.height,
         width: double.infinity,
         child: SingleChildScrollView(
@@ -69,10 +67,82 @@ class _homeVisits extends State<homeVisits> {
                 if (snapshot.hasError) {
                   print(snapshot.error);
                   //print("no Data");
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasData) {
                   //print(snapshot.data);
                   var length = (snapshot.data as dynamic).length;
+                  if (length == 0) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        //mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 50,
+                            ),
+                            child: Container(
+                              height: size.height * 0.18,
+                              width: size.width,
+                              padding: const EdgeInsets.all(30),
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 235, 222, 250),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Image.asset(
+                                "assets/images/homeLocation.png",
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text(
+                            "No Home Visits Yet",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            " Set Your Location then Book your home vist ",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.35,
+                            height: 43,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: const BorderSide(
+                                          color: kPrimaryColor,
+                                          width: 2,
+                                        ))),
+                              ),
+                              onPressed: () {},
+                              child: const Text(
+                                "Go to Book Test",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }
                   return SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
@@ -84,94 +154,24 @@ class _homeVisits extends State<homeVisits> {
                                   labName: "",
                                   time: snapshot.data[index]['time'],
                                   date: snapshot.data[index]['date'],
-                                  labinfo: [],
+                                  labinfo: const [],
                                   press: () {
                                     Navigator.push(
                                         context,
-                                        new MaterialPageRoute(
+                                        MaterialPageRoute(
                                             builder: (context) =>
                                                 speceficHomeVisit(snapshot
                                                     .data[index]['_id'])));
                                   },
                                 )),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       ],
                     ),
                   );
                 } else {
-                  return Container(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 80,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 50,
-                            ),
-                            child: Container(
-                              height: size.height * 0.18,
-                              width: size.width,
-                              padding: EdgeInsets.all(30),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 235, 222, 250),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Image.asset(
-                                "assets/images/homeLocation.png",
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "No Home Visits Yet",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Text(
-                            " Set Your Location then Book your home vist ",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 32,
-                          ),
-                          Container(
-                            width: size.width * 0.35,
-                            height: 43,
-                            child: TextButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                          color: kPrimaryColor,
-                                          width: 2,
-                                        ))),
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "Go to Book Test",
-                                style: TextStyle(
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
+                  return const CircularProgressIndicator();
                 }
               }),
             ),

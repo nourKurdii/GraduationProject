@@ -1,4 +1,4 @@
-import 'dart:async';
+// ignore_for_file: must_be_immutable, camel_case_types, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,7 +7,7 @@ import '../../../../constants.dart';
 
 class location extends StatefulWidget {
   double lat, long;
-  location(this.lat, this.long);
+  location(this.lat, this.long, {super.key});
   @override
   locationState createState() => locationState(lat, long);
 }
@@ -21,14 +21,14 @@ class locationState extends State<location> {
     zoom: 14.4746,
   );
   Set<Marker> markers = {};
-  var point = LatLng(0, 0);
+  var point = const LatLng(0, 0);
 
   locationState(this.lat, this.long);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Lab Location',
+          title: const Text('Lab Location',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
@@ -40,7 +40,7 @@ class locationState extends State<location> {
           GoogleMap(
             initialCameraPosition: initialCameraPosition,
             markers: markers,
-            zoomControlsEnabled: false,
+            zoomControlsEnabled: true,
             mapType: MapType.normal,
             onMapCreated: (GoogleMapController controller) {
               googleMapController = controller;
@@ -73,7 +73,7 @@ class locationState extends State<location> {
                     icon: const Icon(Icons.location_history),
                     backgroundColor: kPrimaryColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                 ],
@@ -85,5 +85,5 @@ class locationState extends State<location> {
 }
 
 class AppColors {
-  static final Color mainColor = Color(0XFF6F36A5);
+  static  Color mainColor = const Color(0XFF6F36A5);
 }

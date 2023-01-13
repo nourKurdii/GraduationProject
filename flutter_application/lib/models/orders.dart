@@ -1,14 +1,16 @@
+// ignore_for_file: camel_case_types
+
 class order {
   String? id;
   String? patientEmail;
   String? time;
   String? date;
-  int? latitude;
-  int? longitude;
+  double? latitude;
+  double? longitude;
   int? rating;
   String testName = "";
   String? labEmail;
-  int? testResult;
+  int testResult = 0;
   String? status;
   List? labinfo;
 
@@ -33,7 +35,7 @@ class order {
     longitude = json['longitude'];
     status = json['status'];
     testName = json['testName'];
-    testResult = json['testResult'];
+    testResult = json['TestResult'];
     time = json['time'];
     labinfo = json['labInfo']; ////[{},{}]
 
@@ -48,11 +50,10 @@ class order {
 
 class labInfo {
   String name = "";
-  String? email;
+  String email = "";
 
   labInfo.fromJson(Map json) {
     name = json['name'];
     email = json['email'];
   }
 }
-

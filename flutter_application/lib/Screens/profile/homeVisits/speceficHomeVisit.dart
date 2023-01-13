@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, no_logic_in_create_state, must_be_immutable, camel_case_types, library_private_types_in_public_api, avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -8,7 +10,7 @@ import 'homeVisits.dart';
 class speceficHomeVisit extends StatefulWidget {
   var testId;
 
-  speceficHomeVisit(this.testId);
+  speceficHomeVisit(this.testId, {super.key});
 
   @override
   _speceficHomeVisit createState() => _speceficHomeVisit(testId);
@@ -26,8 +28,9 @@ class _speceficHomeVisit extends State<speceficHomeVisit> {
         var obj = jsonDecode(res.data);
         print(obj);
         return jsonDecode(res.data);
-      } else
+      } else {
         return Future.error('error');
+      }
     } catch (error) {
       return Future.error(error);
     }
@@ -37,7 +40,6 @@ class _speceficHomeVisit extends State<speceficHomeVisit> {
   _speceficHomeVisit(this.testId);
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {});
   }
@@ -46,17 +48,17 @@ class _speceficHomeVisit extends State<speceficHomeVisit> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "Home Visit Details",
             style: TextStyle(color: Colors.black),
           ),
           elevation: 1.5,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             color: kPrimaryColor,
             onPressed: () {
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => homeVisits()));
+                   MaterialPageRoute(builder: (context) => const homeVisits()));
             },
           ),
           centerTitle: true,

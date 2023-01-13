@@ -29,5 +29,10 @@ router.get('/getTestCat/:testName',actions.getTestCat)
 router.get('/getTestInfo/:testName',actions.getTestInfo)
 router.get('/getTestBool/:testName',actions.getTestBool)
 router.post('/addLabOrder',actions.addLabOrder)
+router.put('/rateOrder/:_id',actions.rateOrder) 
+router.get('/getLabRate/:labEmail', actions.getLabRate)
+router.put('/changeLabRate/:email',actions.changeLabRate)
+router.get('/topThreeLabs',actions.topThreeLabs)
+
 
 module.exports = router

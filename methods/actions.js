@@ -183,7 +183,10 @@ var functions = {
             {
                 $match: { 
                     patientEmail: req.params.patientEmail,
-                    status: "finished"
+                    $or :[
+                        {status: "finished"},
+                        {status: "ratted"}
+                        ]
                  }
             },
         
@@ -197,7 +200,7 @@ var functions = {
             }
         }
         ]).then((data) => {
-           return res.json(data);
+            res.json(data);
 
         })
     }
@@ -269,6 +272,7 @@ var functions = {
                     $match: { 
                         patientEmail: req.params.patientEmail,
                         //status : "pending"
+                        homeVisit : false,
                         $nor: [
                             {status: "finished"},
                             {status:"ratted"},
@@ -322,7 +326,12 @@ var functions = {
                         patientEmail: req.params.patientEmail,
                        // homeVisit: true,
                        homeVisit : true,
-                       status : "finished"
+                       $nor: [
+                        {status: "finished"},
+                        {status:"ratted"},
+                        {status: "cancelled"}
+
+                     ]    
                      },
                     
  
@@ -436,6 +445,7 @@ var functions = {
             status:"pending",
             rating: 0,
             homeVisit: req.body.homeVisit,
+            TestResult:0
 
         });
         neworder.save(function (err, neworder) {
@@ -446,8 +456,46 @@ var functions = {
                 res.send({ success: true, msg: 'Successfully saved' })
             }
         })
+    },
+    rateOrder: function (req , res) {
+        
+        Order.findOneAndUpdate(
+            { _id: req.params._id }, {rating:req.body.rating,status:"ratted"},
+             (error, data) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(data);
+                }
+            }
+        )
+        console.log("you are in updated function");
+        return res.send({ status: "ratted" });
+    },
+    getLabRate:function (req , res) {
+        Order.find({ labEmail:req.params.labEmail },(error,data)=>{
+            return res.send(data);
+        }).sort({labEmail:1});
+        
+    },
+    changeLabRate: function (req , res) {
+        Lab.findOneAndUpdate(
+            { email:req.params.email }, { rating:req.body.rating },
+             (error, data) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(data);
+                }
+            }
+        )
+        console.log("lab rate updated");
+        return res.send({ status: "success" });
+    },
+    topThreeLabs:function(req,res){
+        Lab.find( {rating: {$exists: true}},(error,data)=>{
+            return res.json(data);}) .sort({rating : -1}).limit(3);
     }
-
 
 }
 

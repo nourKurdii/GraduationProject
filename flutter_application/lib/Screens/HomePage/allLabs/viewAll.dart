@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, avoid_print, file_names
+
 import 'package:flutter/material.dart';
 import '../../profile/components/bottomNavBar.dart';
 import '../../profile/components/enums.dart';
@@ -6,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class mainLab extends StatefulWidget {
+  const mainLab({super.key});
+
   @override
   mainLabState createState() => mainLabState();
 }
@@ -17,11 +21,12 @@ class mainLabState extends State<mainLab> {
         Uri.parse("http://10.0.2.2:3000/getLabInfo"),
       );
       if (res.statusCode == 200) {
-        var obj = jsonDecode(res.body);
+        //var obj = jsonDecode(res.body);
         //print(obj);
         return jsonDecode(res.body);
-      } else
+      } else {
         return Future.error('error');
+      }
     } catch (error) {
       return Future.error(error);
     }
@@ -60,13 +65,13 @@ class mainLabState extends State<mainLab> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          new MaterialPageRoute(
+                          MaterialPageRoute(
                               builder: (context) =>
                                   labpage(snapshot.data[index]['_id'])));
                     },
                     child: Container(
-                        constraints:
-                            const BoxConstraints(minHeight: 122, maxHeight: 150),
+                        constraints: const BoxConstraints(
+                            minHeight: 122, maxHeight: 150),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 236, 233, 240),
                           borderRadius: BorderRadius.circular(25),
@@ -173,5 +178,5 @@ class mainLabState extends State<mainLab> {
 }
 
 class AppColors {
-  static final Color mainColor = const Color(0XFF6F36A5);
+  static Color mainColor = const Color(0XFF6F36A5);
 }

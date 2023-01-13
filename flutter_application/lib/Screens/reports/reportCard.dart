@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 
@@ -38,43 +40,41 @@ class reportCard extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      child: Container(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Test Name : $name",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Test Name : $name",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Lab Name : $labName",
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.calendar_month),
+                                const SizedBox(width: 6),
+                                Text(date),
+                                const SizedBox(width: 6),
+                                const Icon(
+                                  Icons.access_time_outlined,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Lab Name : $labName",
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.calendar_month),
-                                  SizedBox(width: 6),
-                                  Text(date),
-                                  SizedBox(width: 6),
-                                  Icon(
-                                    Icons.access_time_outlined,
-                                  ),
-                                  SizedBox(width: 6),
-                                  Text(time),
-                                ],
-                              )
-                            ]),
-                      ),
+                                const SizedBox(width: 6),
+                                Text(time),
+                              ],
+                            )
+                          ]),
                     ),
                   ]),
                 ))));

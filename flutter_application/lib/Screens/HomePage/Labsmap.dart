@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, camel_case_types, file_names
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -20,11 +22,12 @@ Future<List> fetchLab() async {
       Uri.parse("http://10.0.2.2:3000/getLabInfo"),
     );
     if (res.statusCode == 200) {
-      var obj = jsonDecode(res.body);
+      //var obj = jsonDecode(res.body);
       //print(obj);
       return jsonDecode(res.body);
-    } else
+    } else {
       return Future.error('error');
+    }
   } catch (error) {
     return Future.error(error);
   }
@@ -37,7 +40,7 @@ class _labsMap extends State<labsMap> {
       CameraPosition(target: LatLng(32.2360758078, 35.233661981), zoom: 14);
 
   Set<Marker> markers = {};
-  CustomInfoWindowController _customInfoWindowController =
+  final CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   LatLng point = const LatLng(0, 0);
   @override
@@ -117,7 +120,7 @@ class _labsMap extends State<labsMap> {
                                             onTap: () {
                                               Navigator.push(
                                                   context,
-                                                  new MaterialPageRoute(
+                                                  MaterialPageRoute(
                                                       builder: (context) =>
                                                           labpage(
                                                               snapshot.data[i]
@@ -132,9 +135,8 @@ class _labsMap extends State<labsMap> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Text("Ratting: " +
-                                            snapshot.data[i]['rating']
-                                                .toString())
+                                        Text(
+                                            "Ratting: ${snapshot.data[i]['rating']}")
                                       ],
                                     ),
                                   ),

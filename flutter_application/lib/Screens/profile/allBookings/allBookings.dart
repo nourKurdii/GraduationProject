@@ -1,5 +1,6 @@
+// ignore_for_file: camel_case_types, avoid_print
+
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/profile/allBookings/speceficBooking.dart';
 import 'package:flutter_application/Screens/profile/profileScreen.dart';
@@ -21,9 +22,6 @@ class _allBookings extends State<allBookings> {
     super.initState();
   }
 
-  var dio = Dio();
-  var labInfo;
-
   Future<List> getBookings(userEmail) async {
     try {
       var res = await http
@@ -34,7 +32,7 @@ class _allBookings extends State<allBookings> {
         setState(() {
           res;
         });
-        var obj = json.decode(res.body);
+        //var obj = json.decode(res.body);
         //print(obj);
 
         /*for (var i = 0; i < obj.length; i++) {
@@ -43,8 +41,9 @@ class _allBookings extends State<allBookings> {
         }*/
 
         return json.decode(res.body);
-      } else
+      } else {
         return Future.error('error');
+      }
     } catch (error) {
       return Future.error(error);
     }
@@ -168,7 +167,6 @@ class _allBookings extends State<allBookings> {
                             labName: "",
                             id: snapshot.data[index]['_id'],
                             status: snapshot.data[index]['status'],
-                            
                           ),
                         ),
                         const SizedBox(

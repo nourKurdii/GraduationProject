@@ -38,6 +38,9 @@ var orderSchema = new Schema({
     },
     homeVisit:{
         type:Boolean
+    },
+    TestResult:{
+        type: Number,
     }
 })
 module.exports = mongoose.model('Order', orderSchema)

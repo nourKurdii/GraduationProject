@@ -34,24 +34,30 @@ class LabCard extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                    Color(0xff343434).withOpacity(0.4),
-                    Color(0XFF343434).withOpacity(0.15)
+                    const Color(0xff343434).withOpacity(0.4),
+                    const Color(0XFF343434).withOpacity(0.15)
                   ])),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Text.rich(
                 TextSpan(
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   children: [
                     TextSpan(
                       text: "$name\n",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    TextSpan(text: location),
+                    TextSpan(
+                      text: " Rate : $location\n",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),

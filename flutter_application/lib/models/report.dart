@@ -3,8 +3,8 @@ class report {
   String? patientEmail;
   String? time;
   String date = "";
-  int? latitude;
-  int? longitude;
+  double? latitude;
+  double? longitude;
   int? rating;
   String testName = "";
   String? labEmail;

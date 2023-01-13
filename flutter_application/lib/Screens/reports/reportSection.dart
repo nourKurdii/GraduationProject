@@ -19,7 +19,7 @@ class reportSection extends StatelessWidget {
     return GestureDetector(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SingleChildScrollView(
@@ -33,7 +33,7 @@ class reportSection extends StatelessWidget {
                     date: date,
                     time: time,
                     press: press),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 )
               ],
