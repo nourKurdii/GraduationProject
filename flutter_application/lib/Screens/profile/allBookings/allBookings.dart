@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, avoid_print
+// ignore_for_file: camel_case_types, avoid_print, unnecessary_new
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import '../../../constants.dart';
 import 'package:http/http.dart' as http;
 import '../../../models/user.dart';
 import 'components/bookingSection.dart';
+import 'package:flutter_application/models/orders.dart';
 
 class allBookings extends StatefulWidget {
   const allBookings({super.key});
@@ -70,8 +71,7 @@ class _allBookings extends State<allBookings> {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      // ignore: sized_box_for_whitespace
-      body: Container(
+      body: SizedBox(
         height: size.height,
         width: double.infinity,
         child: SingleChildScrollView(
@@ -104,7 +104,7 @@ class _allBookings extends State<allBookings> {
                               padding: const EdgeInsets.all(30),
                               decoration: BoxDecoration(
                                   color:
-                                      const Color.fromARGB(255, 235, 222, 250),
+                                      kPrimaryLightColor,
                                   borderRadius: BorderRadius.circular(15)),
                               child: Image.asset(
                                 "assets/images/homeLocation.png",
@@ -161,12 +161,38 @@ class _allBookings extends State<allBookings> {
                           length,
                           (index) => bookingSection(
                             name: snapshot.data[index]['testName'],
-                            //labInfo[index]['name']
+                            labinfo: const [],
                             time: snapshot.data[index]['time'],
                             date: snapshot.data[index]['date'],
-                            labName: "",
+                            labName: labInfo
+                                .fromJson(order
+                                    .fromJson(snapshot.data[index])
+                                    .labinfo![0])
+                                .name,
                             id: snapshot.data[index]['_id'],
                             status: snapshot.data[index]['status'],
+                            press: () {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => speceficBooking(
+                                          snapshot.data[index]['_id'],
+                                          labInfo
+                                              .fromJson(order
+                                                  .fromJson(
+                                                      snapshot.data[index])
+                                                  .labinfo![0])
+                                              .name,
+                                          labInfo
+                                              .fromJson(order
+                                                  .fromJson(
+                                                      snapshot.data[index])
+                                                  .labinfo![0])
+                                              .email,
+                                          snapshot.data[index]['testName'],
+                                          snapshot.data[index]['time'],
+                                          snapshot.data[index]['date'])));
+                            },
                           ),
                         ),
                         const SizedBox(

@@ -5,7 +5,7 @@ class lab {
   String openTime = "";
   double latitude = 0.0;
   double longitude = 0.0;
-  double rating = 0.0;
+  int rating = 0;
   String location = "";
   String ownerName = "";
   String about = "";

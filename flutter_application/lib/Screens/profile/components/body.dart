@@ -32,7 +32,7 @@ class body extends StatelessWidget {
           height: 20,
         ),
         profileMenu(
-          icon: "assets/images/UserIcon.svg",
+          icon: Icons.person,
           text: "My Account",
           press: () {
             Navigator.push(
@@ -46,7 +46,42 @@ class body extends StatelessWidget {
           },
         ),
         profileMenu(
-          icon: "assets/images/UserIcon.svg",
+          icon: Icons.home_filled,
+          text: "My Home Visit",
+          press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const homeVisits();
+                },
+              ),
+            );
+          },
+        ),
+
+        profileMenu(
+          icon: Icons.event,
+          text: "My test Bookings",
+          press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const allBookings();
+                },
+              ),
+            );
+          },
+        ),
+       
+        profileMenu(
+          icon: Icons.location_city,
+          text: "Doctor bookings",
+          press: () {},
+        ),
+         profileMenu(
+          icon: Icons.password,
           text: "Change password",
           press: () {
             Navigator.push(
@@ -60,40 +95,7 @@ class body extends StatelessWidget {
           },
         ),
         profileMenu(
-          icon: "assets/images/bell.svg",
-          text: "Notification",
-          press: () {},
-        ),
-        profileMenu(
-          icon: "assets/images/map.svg",
-          text: "My Home Visit",
-          press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const homeVisits();
-                },
-              ),
-            );
-          },
-        ),
-        profileMenu(
-          icon: "assets/images/UserIcon.svg",
-          text: "My test Bookings",
-          press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const allBookings();
-                },
-              ),
-            );
-          },
-        ),
-        profileMenu(
-          icon: "assets/images/logout.svg",
+          icon: Icons.logout,
           text: "Log Out",
           press: () {
             Navigator.push(

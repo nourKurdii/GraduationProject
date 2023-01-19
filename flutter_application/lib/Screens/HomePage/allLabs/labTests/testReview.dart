@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state, camel_case_types, must_be_immutable, avoid_print
+
 import 'package:flutter/material.dart';
 import '../booking/bookingScreen.dart';
 import 'package:dio/dio.dart';
@@ -6,7 +8,7 @@ class testReport extends StatefulWidget {
   String testName;
   String labEmail;
   List<String> unavailable;
-  testReport(this.testName, this.labEmail, this.unavailable);
+  testReport(this.testName, this.labEmail, this.unavailable, {super.key});
   @override
   testReportState createState() =>
       testReportState(testName, labEmail, unavailable);
@@ -17,10 +19,11 @@ class testReportState extends State<testReport> {
   String labEmail;
   List<String> unavailable;
   testReportState(this.testName, this.labEmail, this.unavailable);
-  int _value = 0;
+  // ignore: unused_field
+//  final int _value = 0;
 
-  TextEditingController _date = TextEditingController();
-  Dio dio = new Dio();
+  //final TextEditingController _date = TextEditingController();
+  Dio dio = Dio();
 
   Future<Object> getTestInfo(testName) async {
     try {
@@ -75,8 +78,7 @@ class testReportState extends State<testReport> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color.fromARGB(255, 137, 123, 163)
-                                  .withOpacity(0.1),
+                              color: const Color(0xffa2bfbd).withOpacity(0.1),
                               blurRadius: 5.0,
                               offset: const Offset(3, 3),
                               spreadRadius: 1,
@@ -244,6 +246,6 @@ class testReportState extends State<testReport> {
 }
 
 class AppColors {
-  static Color mainColor = const Color.fromARGB(255, 133, 73, 188);
-  static Color backgroundColor = const Color.fromARGB(255, 255, 255, 255);
+  static Color mainColor = Color(0xff425c5a);
+  static Color backgroundColor = const Color(0xffa2bfbd);
 }

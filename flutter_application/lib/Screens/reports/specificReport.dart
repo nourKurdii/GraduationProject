@@ -122,26 +122,26 @@ class _TestReport extends State<TestReport> {
         appBar: AppBar(
           title: const Text(
             "Test Report Details",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
           elevation: 1.5,
           actions: [
             IconButton(
               onPressed: _createPDF,
               icon: const Icon(Icons.file_download_outlined),
-              color: kPrimaryColor,
+              color: kSecondColor,
             )
           ],
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            color: kPrimaryColor,
+            color: kSecondColor,
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const reportsPage()));
             },
           ),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: kPrimaryColor,
         ),
         body: FutureBuilder<List>(
           future: getSpeceficReport(),
@@ -199,12 +199,16 @@ class _TestReport extends State<TestReport> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.calendar_month),
+                                const Icon(
+                                  Icons.calendar_month,
+                                  color: kSecondColor,
+                                ),
                                 const SizedBox(width: 6),
                                 Text(snapshot.data[0]['date']),
                                 const SizedBox(width: 6),
                                 const Icon(
                                   Icons.access_time_outlined,
+                                  color: kSecondColor,
                                 ),
                                 const SizedBox(width: 6),
                                 Text(snapshot.data[0]['time']),
@@ -417,8 +421,8 @@ class _TestReport extends State<TestReport> {
                                 borderRadius: BorderRadius.circular(
                                     getProportionateScreenHeight(10)),
                                 image: const DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/tube.jpg"))),
+                                    image: AssetImage(
+                                        "assets/images/Science-rafiki.png"))),
                           ),
                         ),
                         Column(
@@ -446,12 +450,16 @@ class _TestReport extends State<TestReport> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.calendar_month),
+                                const Icon(
+                                  Icons.calendar_month,
+                                  color: kSecondColor,
+                                ),
                                 const SizedBox(width: 6),
                                 Text(snapshot.data[0]['date']),
                                 const SizedBox(width: 6),
                                 const Icon(
                                   Icons.access_time_outlined,
+                                  color: kSecondColor,
                                 ),
                                 const SizedBox(width: 6),
                                 Text(snapshot.data[0]['time']),
@@ -539,13 +547,15 @@ class _TestReport extends State<TestReport> {
                             Text(
                               "Your Test Result Percentage",
                               style: GoogleFonts.getFont('Lato',
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                                  color: kSecondColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
                             ),
                             CircularPercentIndicator(
                               radius: 40,
                               lineWidth: 8,
                               percent: resultPercentage,
-                              progressColor: kPrimaryColor,
+                              progressColor: kSecondColor,
                               backgroundColor: Colors.grey.shade300,
                               circularStrokeCap: CircularStrokeCap.round,
                               center: Text(

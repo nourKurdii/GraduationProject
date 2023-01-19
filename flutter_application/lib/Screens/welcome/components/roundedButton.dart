@@ -1,5 +1,6 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application/constants.dart';
 
 class roundedButton extends StatelessWidget {
   final String text;
@@ -17,14 +18,14 @@ class roundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       //height: size.height * 0.069,
       width: size.width * 0.8,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(27),
         child: TextButton(
           style: TextButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
             backgroundColor: color,
           ),
           onPressed: press,

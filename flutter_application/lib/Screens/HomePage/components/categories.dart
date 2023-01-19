@@ -19,8 +19,8 @@ class categories extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: kPrimaryLightColor,
       ),
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(10),
       child: Row(
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -29,7 +29,8 @@ class categories extends StatelessWidget {
               height: 40,
               width: 30,
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(50)),
+                  color: const Color.fromARGB(255, 255, 226, 210),
+                  borderRadius: BorderRadius.circular(50)),
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: SvgPicture.asset(
@@ -38,7 +39,11 @@ class categories extends StatelessWidget {
                 ),
               ),
             ),
-            Text(text),
+            Text(
+              text,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ]),
     );
   }

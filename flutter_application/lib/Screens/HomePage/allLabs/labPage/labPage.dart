@@ -195,7 +195,7 @@ class labpageState extends State<labpage> {
                                   height: 195,
                                   width: 290,
                                   decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 253, 249, 255),
+                                    color: kPrimaryLightColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15)),
                                   ),
@@ -229,18 +229,18 @@ class labpageState extends State<labpage> {
                                         child: Row(children: [
                                           const Padding(
                                               padding:
-                                                  EdgeInsets.only(left: 6)),
+                                                  EdgeInsets.only(left: 3)),
                                           Row(
                                             children: const [
                                               Icon(
                                                 Icons.mail,
                                                 color: Color.fromARGB(
-                                                    255, 233, 30, 176),
+                                                    255, 255, 226, 210),
                                                 size: 20,
                                               ),
                                               Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 10)),
+                                                  padding:
+                                                      EdgeInsets.only(left: 8)),
                                             ],
                                           ),
                                           Text(
@@ -259,8 +259,7 @@ class labpageState extends State<labpage> {
                                             children: const [
                                               Icon(
                                                 Icons.timer,
-                                                color: Color.fromARGB(
-                                                    255, 237, 230, 23),
+                                                color: kPrimaryColor,
                                                 size: 20,
                                               ),
                                               Padding(
@@ -309,10 +308,10 @@ class labpageState extends State<labpage> {
                   Column(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DoctorProfile()));
-                        },
+                        // onTap: () {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => const DoctorProfile()));
+                        // },
                         child: Container(
                             // padding: const EdgeInsets.only(top: 500),
                             margin: const EdgeInsets.only(
@@ -325,9 +324,7 @@ class labpageState extends State<labpage> {
                                 borderRadius: BorderRadius.circular(25),
                                 boxShadow: [
                                   BoxShadow(
-                                    color:
-                                        const Color.fromARGB(255, 84, 35, 158)
-                                            .withOpacity(0.1),
+                                    color: kPrimaryColor.withOpacity(0.1),
                                     blurRadius: 15.0,
                                     offset: const Offset(3, 3),
                                     spreadRadius: 1,
@@ -348,8 +345,8 @@ class labpageState extends State<labpage> {
                                             margin: const EdgeInsets.only(
                                                 left: 23, top: 15),
                                             decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 232, 232, 232),
+                                              color: Color.fromARGB(
+                                                  255, 255, 226, 210),
                                               borderRadius:
                                                   BorderRadius.circular(360),
                                               image: const DecorationImage(
@@ -364,9 +361,9 @@ class labpageState extends State<labpage> {
                                           children: <Widget>[
                                             const SizedBox(height: 25),
                                             InkWell(
-                                              child: const Text(
-                                                  'Dr.' 'Vina Belgium',
-                                                  style: TextStyle(
+                                              child: Text(
+                                                  snapshot.data['ownerName'],
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 16,
@@ -390,8 +387,7 @@ class labpageState extends State<labpage> {
                                       alignment: Alignment.center,
                                       child: const Icon(
                                         Icons.message,
-                                        color:
-                                            Color.fromARGB(255, 202, 178, 207),
+                                        color: kPrimaryColor,
                                       ),
                                     ),
                                   ]),
@@ -410,13 +406,11 @@ class labpageState extends State<labpage> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 196, 162, 255)
-                                          .withOpacity(0.1),
+                                  color: kPrimaryLightColor,
                                   blurRadius: 5.0,
-                                  offset: const Offset(3, 3),
+                                  offset: Offset(3, 3),
                                   spreadRadius: 1,
                                 ),
                               ],
@@ -465,13 +459,11 @@ class labpageState extends State<labpage> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 196, 162, 255)
-                                          .withOpacity(0.1),
+                                  color: kPrimaryLightColor,
                                   blurRadius: 5.0,
-                                  offset: const Offset(3, 3),
+                                  offset: Offset(3, 3),
                                   spreadRadius: 1,
                                 ),
                               ],
@@ -554,12 +546,11 @@ class labpageState extends State<labpage> {
                           decoration: BoxDecoration(
                             color: AppColors.mainColor,
                             borderRadius: BorderRadius.circular(24),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
-                                color: const Color.fromARGB(255, 196, 162, 255)
-                                    .withOpacity(0.1),
+                                color: kPrimaryLightColor,
                                 blurRadius: 5.0,
-                                offset: const Offset(3, 3),
+                                offset: Offset(3, 3),
                                 spreadRadius: 1,
                               ),
                             ],
@@ -598,6 +589,7 @@ class labpageState extends State<labpage> {
 }
 
 class AppColors {
-  static const Color mainColor = Color.fromARGB(255, 133, 73, 188);
-  static const Color backgroundColor = Color.fromARGB(255, 255, 255, 255);
+  static const Color mainColor = Color(0xff425c5a);
+  //Color.fromARGB(255, 133, 73, 188);
+  static const Color backgroundColor = Color(0xffa2bfbd);
 }

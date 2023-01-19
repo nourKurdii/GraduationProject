@@ -6,9 +6,11 @@ import 'package:flutter_application/Screens/profile/homeVisits/speceficHomeVisit
 
 import '../../../constants.dart';
 import '../../../models/user.dart';
-import '../../reports/reportSection.dart';
+import '../../profile/allBookings/components/bookingSection.dart';
 import '../profileScreen.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:flutter_application/models/orders.dart';
 
 class homeVisits extends StatefulWidget {
   const homeVisits({super.key});
@@ -88,8 +90,7 @@ class _homeVisits extends State<homeVisits> {
                               width: size.width,
                               padding: const EdgeInsets.all(30),
                               decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 235, 222, 250),
+                                  color: kPrimaryLightColor,
                                   borderRadius: BorderRadius.circular(15)),
                               child: Image.asset(
                                 "assets/images/homeLocation.png",
@@ -149,19 +150,44 @@ class _homeVisits extends State<homeVisits> {
                       children: [
                         ...List.generate(
                             length,
-                            (index) => reportSection(
+                            (index) => bookingSection(
                                   name: snapshot.data[index]['testName'],
-                                  labName: "",
+                                  labinfo: const [],
                                   time: snapshot.data[index]['time'],
                                   date: snapshot.data[index]['date'],
-                                  labinfo: const [],
+                                  labName: labInfo
+                                      .fromJson(order
+                                          .fromJson(snapshot.data[index])
+                                          .labinfo![0])
+                                      .name,
+                                  id: snapshot.data[index]['_id'],
+                                  status: snapshot.data[index]['status'],
                                   press: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                speceficHomeVisit(snapshot
-                                                    .data[index]['_id'])));
+                                                speceficHomevisit(
+                                                  snapshot.data[index]['_id'],
+                                                  labInfo
+                                                      .fromJson(order
+                                                          .fromJson(snapshot
+                                                              .data[index])
+                                                          .labinfo![0])
+                                                      .name,
+                                                  labInfo
+                                                      .fromJson(order
+                                                          .fromJson(snapshot
+                                                              .data[index])
+                                                          .labinfo![0])
+                                                      .email,
+                                                  snapshot.data[index]
+                                                      ['testName'],
+                                                  snapshot.data[index]['time'],
+                                                  snapshot.data[index]['date'],
+                                                  snapshot.data[index]
+                                                      ['location'],
+                                                )));
                                   },
                                 )),
                         const SizedBox(

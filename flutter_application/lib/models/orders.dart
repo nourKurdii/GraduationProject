@@ -5,8 +5,8 @@ class order {
   String? patientEmail;
   String? time;
   String? date;
-  double? latitude;
-  double? longitude;
+  double latitude = 0.1;
+  double longitude = 0.1;
   int? rating;
   String testName = "";
   String? labEmail;

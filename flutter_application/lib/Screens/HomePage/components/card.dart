@@ -12,7 +12,7 @@ class card extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Container(
-        padding: EdgeInsets.all(7),
+        padding: const EdgeInsets.all(7),
         decoration: BoxDecoration(
             color: kPrimaryLightColor, borderRadius: BorderRadius.circular(20)),
         child: Row(children: [
@@ -24,7 +24,7 @@ class card extends StatelessWidget {
             height: 150,
             width: 100,
           ))),
-          SizedBox(
+          const SizedBox(
             width: 25,
           ),
           // text
@@ -32,26 +32,26 @@ class card extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'How Do You feel?',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
-                Text(
-                  'Fill out your card',
+                const Text(
+                  'Book your Appointment',
                   style: TextStyle(fontSize: 14),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Container(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(15)),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Get Started!",
                       style: TextStyle(color: Colors.white),

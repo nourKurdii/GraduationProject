@@ -17,6 +17,8 @@ import '../../../size_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
+import 'doctors/alldoctors.dart';
+
 class homePage extends StatefulWidget {
   var name;
 
@@ -103,14 +105,32 @@ class _homeState extends State<homePage> {
             ),
 
             //horizontal listview tests categories
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    "Looking For ",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             const listView(),
             const SizedBox(
               height: 15,
             ),
-
             //labs list
             SectionTitle(
-              title: "Top Three Labs",
+              title: "Top Ratted Labs",
               press: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const mainLab()));
@@ -133,9 +153,11 @@ class _homeState extends State<homePage> {
                         ...List.generate(
                             (snapshot.data as dynamic).length,
                             (index) => LabsSection(
+                                  labId: snapshot.data[index]['_id'],
                                   name: snapshot.data[index]['name'],
                                   Image: "assets/images/lab1.jpg",
-                                  Location: snapshot.data[index]['rating'].toString(),
+                                  Location:
+                                      snapshot.data[index]['rating'].toString(),
                                 )),
                         const SizedBox(
                           width: 10,
@@ -157,8 +179,10 @@ class _homeState extends State<homePage> {
             SectionTitle(
               title: "Doctors",
               press: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Dashboard()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const allDoctors()));
               },
             ),
             const SizedBox(
@@ -166,7 +190,7 @@ class _homeState extends State<homePage> {
             ),
 
             FutureBuilder<List>(
-              future: fetchLab(),
+              future: fetchDoctor(),
               builder: ((context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error);
@@ -179,8 +203,15 @@ class _homeState extends State<homePage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ...List.generate(demoDoctor.length,
-                            (index) => doctorCard(d: demoDoctor[index])),
+                        ...List.generate(
+                            (snapshot.data as dynamic).length,
+                            (index) => doctorCard(
+                                  name: snapshot.data[index]['name'],
+                                  title: snapshot.data[index]['title'],
+                                )),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         const SizedBox(
                           width: 10,
                         ),

@@ -1,13 +1,19 @@
 class doctor {
-  String name, title;
-  String image;
+  String id = "";
+  String name = "";
+  String email = "";
+  String title = "";
+  String phone = "";
+  List ? unavailable ;
 
-  doctor({required this.name, required this.title, required this.image});
+  doctor(
+      this.id, this.name, this.email, this.phone, this.title, this.unavailable);
+  doctor.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
+    name = json['name'];
+    phone = json['phone'];
+    title = json['title'];
+    email = json['email'];
+    unavailable = json['unAvailableTime'].cast<String>();
+  }
 }
-
-List<doctor> demoDoctor = [
-  doctor(name: "name", title: "title", image: "assets/images/main1.png"),
-  doctor(image: "assets/images/main2.png", name: "name", title: "title"),
-  doctor(name: "name", title: "title", image:"assets/images/main3.png"),
-  doctor(name: "name", title: "title", image: "assets/images/main3.png"),
-];

@@ -85,5 +85,5 @@ class locationState extends State<location> {
 }
 
 class AppColors {
-  static  Color mainColor = const Color(0XFF6F36A5);
+  static  Color mainColor = Color(0xff425c5a);
 }

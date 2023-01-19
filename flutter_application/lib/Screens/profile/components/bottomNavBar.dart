@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../chat/HomeScreen.dart';
 import '../../../models/user.dart';
 import '../../HomePage/homePage.dart';
 import '../../reports/allreports.dart';
@@ -19,18 +20,18 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xffb6b6b6);
+    const Color inActiveIconColor = Color(0xffb6b6b6);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(40), topRight: Radius.circular(40)),
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, -15),
+                offset: const Offset(0, -15),
                 blurRadius: 20,
-                color: Color(0xffdadada).withOpacity(0.15))
+                color: const Color(0xffdadada).withOpacity(0.15))
           ]),
       child: SafeArea(
           child: Row(
@@ -57,7 +58,7 @@ class BottomNavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return reportsPage();
+                      return const reportsPage();
                     },
                   ),
                 );
@@ -67,7 +68,16 @@ class BottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor)),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return Chat(User.email);
+                    },
+                  ),
+                );
+              },
               icon: SvgPicture.asset("assets/images/chat.svg",
                   color: MenuState.chat == selectedMeu
                       ? kPrimaryColor
@@ -78,7 +88,7 @@ class BottomNavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return profileScreen();
+                      return const profileScreen();
                     },
                   ),
                 );

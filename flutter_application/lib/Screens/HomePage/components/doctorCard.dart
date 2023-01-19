@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../models/doctor.dart';
 import '../../../size_config.dart';
 import '../../Dashboard.dart';
 
 class doctorCard extends StatelessWidget {
-  const doctorCard({
-    Key? key,
-    required this.d,
-  }) : super(key: key);
-  final doctor d;
+  const doctorCard({Key? key, required this.name, required this.title})
+      : super(key: key);
+  final String name;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +18,12 @@ class doctorCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => Dashboard()));
+              MaterialPageRoute(builder: (context) => const Dashboard()));
         },
         child: SizedBox(
             width: getProportionateScreenWidth(100),
             child: DecoratedBox(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: inputFieldBackground,
               ),
               child: Column(
@@ -33,34 +31,31 @@ class doctorCard extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 1.05,
                     child: Container(
-                      //decoration: BoxDecoration(),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: kPrimaryLightColor,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Image.asset(
-                          d.image,
-                        ),
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: kPrimaryLightColor,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Image.asset(
+                        "assets/images/main1.png",
                       ),
                     ),
                   ),
                   Text(
-                    d.name,
-                    style: TextStyle(
+                    name,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Text(
-                    d.title,
+                    title,
                     style: TextStyle(color: Colors.grey.shade500),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],

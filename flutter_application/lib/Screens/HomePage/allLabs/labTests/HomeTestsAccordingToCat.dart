@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'homeTestReview.dart';
@@ -6,7 +8,8 @@ class HomeTestAccordingToCat extends StatefulWidget {
   List<String> testsArray;
   String labEmail;
   List<String> unavailable;
-  HomeTestAccordingToCat(this.testsArray, this.labEmail, this.unavailable);
+  HomeTestAccordingToCat(this.testsArray, this.labEmail, this.unavailable,
+      {super.key});
 
   @override
   _HomeTestAccordingToCat createState() =>
@@ -55,15 +58,21 @@ class _HomeTestAccordingToCat extends State<HomeTestAccordingToCat> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(20)),
                     //color: Colors.black,
                     //height: 20,
                     //width: 20,
                     child: Center(
-                      child: Text(
-                        testsArray[i],
-                        style: const TextStyle(color: Colors.black),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          testsArray[i],
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ),

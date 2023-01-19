@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types, library_private_types_in_public_api, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/HomePage/homePage.dart';
 import 'package:flutter_application/Screens/LogIn/components/background.dart';
 import 'package:flutter_application/Screens/SignUp/SignUpScreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../../chat/methods.dart';
 import '../../../constants.dart';
 import '../../../models/user.dart';
 import '../../welcome/components/roundedButton.dart';
@@ -22,14 +25,13 @@ class Signin extends StatefulWidget {
 
 class _bodyState extends State<Signin> {
   var logEmail, logPassword;
-  TextEditingController emailControl = new TextEditingController();
-  TextEditingController nameControl = new TextEditingController();
-  TextEditingController phoneControl = new TextEditingController();
-  TextEditingController passwordControl = new TextEditingController();
+  TextEditingController emailControl = TextEditingController();
+  TextEditingController nameControl = TextEditingController();
+  TextEditingController phoneControl = TextEditingController();
+  TextEditingController passwordControl = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     nameControl.text = User.getName();
     phoneControl.text = User.getPhone();
@@ -41,8 +43,6 @@ class _bodyState extends State<Signin> {
     var res = await dio.get(('http://10.0.2.2:3000/getUserInfo/$email'));
 
     if (res.statusCode == 200) {
-      print(User.email);
-      print((res));
       User.setName(res.data["name"]);
       User.setPhone(res.data["phone"]);
 
@@ -50,12 +50,13 @@ class _bodyState extends State<Signin> {
       //print(res.data["name"]);
       var name;
       name = (User.getName());
-      print(name);
       //return jsonDecode(res.data);
+      // ignore: use_build_context_synchronously
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => homePage(name)));
-    } else
+    } else {
       return Future.error('error');
+    }
   }
 
   save(logEmail, logPassword) async {
@@ -65,7 +66,8 @@ class _bodyState extends State<Signin> {
         data: {"email": logEmail, "password": logPassword},
       );
     } on DioError catch (e) {
-      return Fluttertoast.showToast(
+      // return e;
+      Fluttertoast.showToast(
           msg: e.response!.data['msg'],
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
@@ -87,72 +89,61 @@ class _bodyState extends State<Signin> {
             //SizedBox(height: size.height * 0.03, ),
             Image.asset("assets/images/signin_page.png",
                 width: size.width * 0.6),
-            Container(
-              child: Form(
-                child: Column(children: [
-                  RounedInputField(
-                    textEditingCont: TextEditingController(text: logEmail),
-                    hintText: "someone@company.com",
-                    icon: Icons.person,
-                    onChanged: (value) {
-                      logEmail = value;
-                      //User.setEmail(value);
+            Form(
+              child: Column(children: [
+                RounedInputField(
+                  textEditingCont: TextEditingController(text: logEmail),
+                  hintText: "someone@company.com",
+                  icon: Icons.person,
+                  onChanged: (value) {
+                    logEmail = value;
+                    //User.setEmail(value);
+                  },
+                  color: inputFieldBackground,
+                ),
+                RoundedPasswordField(
+                    onChange: (Value) {
+                      logPassword = Value;
+                      //User.setPassword(Value);
                     },
                     color: inputFieldBackground,
-                  ),
-                  RoundedPasswordField(
-                      onChange: (Value) {
-                        logPassword = Value;
-                        //User.setPassword(Value);
-                      },
-                      color: inputFieldBackground,
-                      textEditingCont:
-                          TextEditingController(text: logPassword)),
-                  roundedButton(
-                    text: "LOGIN",
-                    press: () {
-                      save(logEmail, logPassword).then((value) {
-                        if (value.data['success']) {
-                          print("ok");
+                    textEditingCont: TextEditingController(text: logPassword)),
+                roundedButton(
+                  text: "LOGIN",
+                  press: () {
+                    logIn(logEmail, logPassword).then((value) {
+                      save(logEmail, logPassword).then((val) {
+                        if (val.data['success']) {
                           Fluttertoast.showToast(
-                              msg: value.data['msg'],
+                              msg: 'log in successfully',
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               backgroundColor: kPrimaryLightColor,
-                              textColor: Colors.black,
+                              textColor: Colors.grey.shade800,
                               fontSize: 16.0);
                           User.setEmail(logEmail);
                           getUserInfo(logEmail);
-                        } else {
-                          print("not Ok");
-                          Fluttertoast.showToast(
-                              msg: value.data['msg'],
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: kPrimaryLightColor,
-                              textColor: Colors.black,
-                              fontSize: 16.0);
                         }
                       });
-                    },
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.015,
-                  ),
-                  alreadyHaveAnAccountCheck(press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SignUpScreen();
-                        },
-                      ),
-                    );
-                  }),
-                ]),
-              ),
+                    });
+                     },
+                  color: kPrimaryColor,
+                  textColor: Colors.white,
+                ),
+                SizedBox(
+                  height: size.height * 0.015,
+                ),
+                alreadyHaveAnAccountCheck(press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      },
+                    ),
+                  );
+                }),
+              ]),
             ),
           ],
         ),

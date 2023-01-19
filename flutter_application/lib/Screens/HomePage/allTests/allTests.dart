@@ -73,7 +73,7 @@ class _allTests extends State<allTests> {
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/tube2.jpg'),
+                                            'assets/images/Blood test-rafiki.png'),
                                         fit: BoxFit.fitWidth,
                                         filterQuality: FilterQuality.high),
                                     borderRadius: BorderRadius.all(
@@ -87,14 +87,17 @@ class _allTests extends State<allTests> {
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(testsList[index]),
+                                    Text(
+                                      testsList[index],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     Text(
                                       labsNames[index],
                                       style: TextStyle(
-                                          color: Colors.grey.shade400),
+                                          color: Colors.grey.shade400,fontWeight: FontWeight.bold),
                                     )
                                   ],
                                 )

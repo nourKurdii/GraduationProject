@@ -12,18 +12,18 @@ class profileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(
+        title: const Text(
           "Profile",
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(
+              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 22),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: body(),
-      bottomNavigationBar: BottomNavBar(
+      body: const body(),
+      bottomNavigationBar: const BottomNavBar(
         selectedMeu: MenuState.profile,
       ),
     );
   }
 }
-

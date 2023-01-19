@@ -29,10 +29,22 @@ router.get('/getTestCat/:testName',actions.getTestCat)
 router.get('/getTestInfo/:testName',actions.getTestInfo)
 router.get('/getTestBool/:testName',actions.getTestBool)
 router.post('/addLabOrder',actions.addLabOrder)
+router.post('/addHomeOrder',actions.addHomeOrder)
 router.put('/rateOrder/:_id',actions.rateOrder) 
 router.get('/getLabRate/:labEmail', actions.getLabRate)
 router.put('/changeLabRate/:email',actions.changeLabRate)
 router.get('/topThreeLabs',actions.topThreeLabs)
+router.get('/getSpeceficDoc/:id',actions.getSpeceficDoc)
+router.post('/addDoctorBooking',actions.addDoctorBooking)
+//-----------------------------------------------------------------
+router.post('/addDoctor',actions.addNewDoctor)
+router.post('/authenticateD', actions.authenticateD)
+router.get('/getdoctorname/:email', actions.getDoctorname) 
+router.get('/getDoctorOrders/:doctor',actions.getDoctorOrders)
+router.put('/rejectDoctorOrder/:id',actions.rejectDoctorOrder)
+router.put('/acceptrequest/:id',actions.acceptrequest)
+
+
 
 
 module.exports = router

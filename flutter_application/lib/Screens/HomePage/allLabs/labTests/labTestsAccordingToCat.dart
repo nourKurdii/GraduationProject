@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state, library_private_types_in_public_api, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'testReview.dart';
@@ -7,7 +9,8 @@ class labTestAccordingToCat extends StatefulWidget {
   String labEmail;
   List<String> unavailable;
 
-  labTestAccordingToCat(this.testsArray, this.labEmail, this.unavailable);
+  labTestAccordingToCat(this.testsArray, this.labEmail, this.unavailable,
+      {super.key});
 
   @override
   _labTestAccordingToCat createState() =>
@@ -21,7 +24,6 @@ class _labTestAccordingToCat extends State<labTestAccordingToCat> {
   _labTestAccordingToCat(this.testsArray, this.labEmail, this.unavailable);
   @override
   void initState() {
-    // TODO: implement initState
     print(labEmail);
     print(testsArray);
     super.initState();
@@ -57,15 +59,19 @@ class _labTestAccordingToCat extends State<labTestAccordingToCat> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(20)),
                     //color: Colors.black,
                     //height: 20,
                     //width: 20,
                     child: Center(
-                      child: Text(
-                        testsArray[i],
-                        style: const TextStyle(color: Colors.black),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          testsArray[i],
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

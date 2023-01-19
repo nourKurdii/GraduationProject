@@ -1,271 +1,329 @@
-import 'dart:math';
+// ignore_for_file: file_names, avoid_print, must_be_immutable, no_logic_in_create_state, prefer_typing_uninitialized_variables
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application/constants.dart';
+import 'package:http/http.dart' as http;
+import '../../../../models/doctor.dart';
+import '../../doctors/doctorBooking.dart';
 
 class DoctorProfile extends StatefulWidget {
-
-
+  var docId;
+  DoctorProfile(this.docId, {super.key});
 
   @override
-  DoctorProfileState createState() => DoctorProfileState();
+  DoctorProfileState createState() => DoctorProfileState(docId);
 }
 
 class DoctorProfileState extends State<DoctorProfile> {
+  Future<Object> getSpeceficDoc() async {
+    try {
+      var res = await http.get(
+        Uri.parse("http://10.0.2.2:3000/getSpeceficDoc/$docId"),
+      );
+      if (res.statusCode == 200) {
+        setState(() {
+          res;
+        });
+        //var obj = jsonDecode(res.body);
+        // print("on future");
+        //print(obj);
+        //print(lab.fromJson(obj));
+        //print(lab.fromJson(obj).name);
+        return jsonDecode(res.body);
+      } else {
+        return Future.error('error');
+      }
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
 
+  var docId;
+  DoctorProfileState(this.docId);
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-  appBar: AppBar(   
-     backgroundColor : AppColors.mainColor, 
-  ),
-          body: Column(
- children: <Widget>[
-   Padding(padding: EdgeInsets.only(top: 45)),
-  Row(
-children: <Widget>[
-
-  
-   Container(
-margin: EdgeInsets.only(left: 90,right: 80),
-                       width: 180,
-                      height: 180,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,),
-                              
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.1),
-                                offset: Offset(0, 10))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/images/doctor.png")
-                              
-                          ),
-  ),
-                
-  
-                 //Padding(padding: EdgeInsets.only(top: )),
-             //   Row(
-               // children :[
-                     child: Container( 
-                  padding: EdgeInsets.only(left: 130,top: 135),
-                      child :
-                        Icon(Icons.chat,
-                      color:AppColors.mainColor,size: 42,)
-                     )
-                //]
-                 //   )
-                 ),
-  
-  ]
-                ),
- 
-
-            
-                 Padding(padding: EdgeInsets.only(top: 40)),
-                 Container(
-                  height: 50,
-                  width: 385,
-                  decoration: BoxDecoration(
-                  color:Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                  ),
-                     boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 137, 123, 163).withOpacity(0.1),
-                    blurRadius: 5.0,
-                    offset: Offset(3, 3),
-                    spreadRadius: 1,
-
-                  ),
-                ],
-              ),
-              child:   Row(
-                  children:<Widget> [
-                    Row(
-                     children: <Widget>[
-                     SizedBox(width: 20,),
-
-                       Text('Dr Name :',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                     ], 
-                    ),
-              
-                    Row(
-                     children: <Widget>[
-                       SizedBox(width: 20,),
-                       Text('the name',style: TextStyle( fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                     ], 
-                    )
-
-                  ],
-                )),
-                 SizedBox(height: 5),
-                Container(
-                  height: 50,
-                  width: 385,
-                  decoration: BoxDecoration(
-                  color:Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                  ),
-                     boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 137, 123, 163).withOpacity(0.1),
-                    blurRadius: 5.0,
-                    offset: Offset(3, 3),
-                    spreadRadius: 1,
-
-                  ),
-                ],
-              ),
-              child:   Row(
-                  children:<Widget> [
-                 
-                   
-                     SizedBox(width: 20,),
-
-                       Text('E-Mail :',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                      
-                     SizedBox(width: 20,),
-
-
-                  
-                      Expanded(
-                      child: Text('Dana.abushaqdam106@gmail.com',style: TextStyle( fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                    )], 
-                    )
-
-                  
-                ),
-
-                SizedBox(height: 5),
-                Container(
-                  height: 50,
-                  width: 385,
-                  decoration: BoxDecoration(
-                  color:Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                  ),
-                     boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 137, 123, 163).withOpacity(0.1),
-                    blurRadius: 5.0,
-                    offset: Offset(3, 3),
-                    spreadRadius: 1,
-
-                  ),
-                ],
-              ),
-              child:   Row(
-                  children:<Widget> [
-                 
-                   
-                     SizedBox(width: 20,),
-
-                       Text('Phone Number :',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                      
-                     SizedBox(width: 20,),
-
-
-                  
-                      Expanded(
-                      child: Text('08963258',style: TextStyle( fontSize: 18 , color: Colors.black)),
-                    )], 
-                    )
-
-                  
-                ),
-                SizedBox(height: 5),
-                Container(
-                  height: 50,
-                  width: 385,
-                  decoration: BoxDecoration(
-                  color:Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                  ),
-                     boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(255, 137, 123, 163).withOpacity(0.1),
-                    blurRadius: 5.0,
-                    offset: Offset(3, 3),
-                    spreadRadius: 1,
-
-                  ),
-                ],
-              ),
-              child:   Row(
-                  children:<Widget> [
-                 
-                   
-                     SizedBox(width: 20,),
-
-                       Text('Lab work in :',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                      
-                     SizedBox(width: 20,),
-
-
-                  
-                      Expanded(
-                      child: Text('Lab NAME',style: TextStyle( fontSize: 18 , fontFamily: 'Raleway',color: Colors.black)),
-                    )], 
-                    )
-
-                  
-                )
-                ]
-                ),
-                
-              
-                  
-
-          
-              
-        
-           
-           
-    
-        
-      
-        
-          
-          
-         
-
-  
- bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(label: "",icon: Icon(Icons.arrow_back,color: Colors.grey,)),
-        BottomNavigationBarItem(label: "",icon: Icon(Icons.home_max)),
-
-       // BottomNavigationBarItem(label: "",icon: Icon(Icons.arrow_forward,color: Colors.grey,))
-
-      ]
+      backgroundColor: Colors.grey.shade200,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Doctor profile",
+        ),
+        backgroundColor: AppColors.mainColor,
       ),
+      body: FutureBuilder<Object>(
+          future: getSpeceficDoc(),
+          builder: ((context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              print("no Data");
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasData) {
+              return Column(children: <Widget>[
+                const Padding(padding: EdgeInsets.only(top: 20)),
+                Row(children: <Widget>[
+                  Container(
+                      margin: const EdgeInsets.only(left: 120, right: 80),
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: kPrimaryLightColor,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: const Color.fromARGB(255, 255, 255, 255)
+                                  .withOpacity(0.1),
+                              offset: const Offset(4, 10))
+                        ],
+                        shape: BoxShape.circle,
+                        image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/images/doctor.png")),
+                      ),
+
+                      //Padding(padding: EdgeInsets.only(top: )),
+                      //   Row(
+                      // children :[
+                      child: Container(
+                          padding: const EdgeInsets.only(left: 110, top: 110),
+                          child: Icon(
+                            Icons.chat,
+                            color: AppColors.mainColor,
+                            size: 38,
+                          ))
+                      //]
+                      //   )
+                      ),
+                ]),
+                const Padding(padding: EdgeInsets.only(top: 40)),
+                Container(
+                    height: 57,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 137, 123, 163)
+                              .withOpacity(0.1),
+                          blurRadius: 5.0,
+                          offset: const Offset(3, 3),
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text('Dr Name :',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    //fontFamily: 'Raleway',
+                                    color: Colors.grey.shade800)),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(doctor.fromJson(snapshot.data).name,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    //fontFamily: 'Raleway',
+                                    color: Colors.grey.shade800)),
+                          ],
+                        )
+                      ],
+                    )),
+                const SizedBox(height: 7),
+                Container(
+                    height: 57,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 137, 123, 163)
+                              .withOpacity(0.1),
+                          blurRadius: 5.0,
+                          offset: const Offset(3, 3),
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text('Title :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                //fontFamily: 'Raleway',
+                                color: Colors.grey.shade800)),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Text(doctor.fromJson(snapshot.data).title,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  // fontFamily: 'Raleway',
+                                  color: Colors.grey.shade800)),
+                        )
+                      ],
+                    )),
+                const SizedBox(height: 7),
+                Container(
+                    height: 57,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 137, 123, 163)
+                              .withOpacity(0.1),
+                          blurRadius: 5.0,
+                          offset: const Offset(3, 3),
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text('E-Mail :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                // fontFamily: 'Raleway',
+                                color: Colors.grey.shade800)),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Text(doctor.fromJson(snapshot.data).email,
+                              style: TextStyle(
+                                  fontSize: 18,
+//fontFamily: 'Raleway',
+                                  color: Colors.grey.shade800)),
+                        )
+                      ],
+                    )),
+                const SizedBox(height: 7),
+                Container(
+                    height: 57,
+                    width: size.width * 0.95,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 137, 123, 163)
+                              .withOpacity(0.1),
+                          blurRadius: 5.0,
+                          offset: const Offset(3, 3),
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Text('Phone Number :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                //fontFamily: 'Raleway',
+                                color: Colors.grey.shade800)),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Text(doctor.fromJson(snapshot.data).phone,
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.grey.shade800)),
+                        )
+                      ],
+                    )),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 40, right: 30),
+                      //padding:EdgeInsets.only(top:8),
+                      width: size.width * 0.8,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 196, 162, 255)
+                                .withOpacity(0.1),
+                            blurRadius: 5.0,
+                            offset: const Offset(3, 3),
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(14),
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        child: const Text(
+                          'Book Consultation',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              //  fontFamily: 'Raleway',
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DoctorBookingScreen(
+                                      doctor.fromJson(snapshot.data).email,
+                                      doctor.fromJson(snapshot.data).unavailable
+                                          as dynamic)));
+                          // print('ffff');
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ]);
+            } else {
+              return const CircularProgressIndicator();
+            }
+          })),
     );
   }
 }
 
 class AppColors {
-
-  static final Color mainColor = Color(0XFF6F36A5);
-  }
+  static Color mainColor = const Color(0xff425c5a);
+}

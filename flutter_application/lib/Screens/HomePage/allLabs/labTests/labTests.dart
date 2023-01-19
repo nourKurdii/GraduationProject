@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/constants.dart';
 import '../../../profile/components/bottomNavBar.dart';
 import '../../../profile/components/enums.dart';
 import 'labTestsAccordingToCat.dart';
@@ -29,9 +30,14 @@ class TestsState extends State<Tests> {
     const Color.fromARGB(255, 248, 245, 255),
   ];
   List items = [
-    {"list": "diabetes", Image: 'assets/images/diabeties.png'},
+    {"list": "Diabetes", Image: 'assets/images/diabeties.png'},
     {"list": "Vitamin", Image: 'assets/images/vitamin.png'},
-    {"list": "hormonal", Image: 'assets/images/hormonal.png'}
+    {"list": "Hormonal", Image: 'assets/images/hormonal.png'},
+    {
+      "list": "Thyroid",
+      Image:
+          'assets/images/tiny-endocrinologists-doctors-diagnose-treat-human-thyroid-gland-thyroid-examination-with-magnifying-glass-hypothyroidism-hyperthyroidism-concept-health-medical-treatment_458444-985.jpg'
+    },
   ];
 
   TestsState(this.labTests, this.labEmail, this.unavailable);
@@ -39,7 +45,7 @@ class TestsState extends State<Tests> {
   List<String> vitamins = [];
   List<String> hormon = [];
   var testName;
-  Dio dio = new Dio();
+  Dio dio = Dio();
 
   getTestCat(testName) async {
     try {
@@ -106,7 +112,7 @@ class TestsState extends State<Tests> {
                   fontSize: 25,
                   fontFamily: 'Raleway')),
           centerTitle: true,
-          backgroundColor: AppColors.mainColor,
+          backgroundColor: kPrimaryColor,
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 20, left: 18),
@@ -126,7 +132,7 @@ class TestsState extends State<Tests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(
@@ -188,7 +194,7 @@ class TestsState extends State<Tests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(
@@ -250,7 +256,7 @@ class TestsState extends State<Tests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(

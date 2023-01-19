@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/HomePage/allLabs/labPage/labPage.dart';
 
-import '../../../constants.dart';
 import 'API_services.dart';
 import 'labModel.dart';
 
@@ -13,7 +12,7 @@ class SearchTest extends SearchDelegate {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
     ];
   }
 
@@ -23,7 +22,7 @@ class SearchTest extends SearchDelegate {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   FetchLab _labModel = FetchLab();
@@ -37,7 +36,7 @@ class SearchTest extends SearchDelegate {
           builder: (context, snapshot) {
             var data = snapshot.data;
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
@@ -81,16 +80,16 @@ class SearchTest extends SearchDelegate {
                               height: 60,
                               width: 60,
                               decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/tube2.jpg'),
-                                          fit: BoxFit.fitWidth,
-                                          filterQuality: FilterQuality.high),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                      //color: Colors.red
-                                    ),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/tube2.jpg'),
+                                    fit: BoxFit.fitWidth,
+                                    filterQuality: FilterQuality.high),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                //color: Colors.red
+                              ),
                             ),
                             const SizedBox(
                               width: 10,
@@ -99,7 +98,10 @@ class SearchTest extends SearchDelegate {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(testsList[index]),
+                                Text(
+                                  testsList[index],
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 Text(
                                   labsNames[index],
                                   style: TextStyle(color: Colors.grey.shade400),
@@ -119,7 +121,7 @@ class SearchTest extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return const Center(
-      child: Text("Search Users"),
+      child: Text("Search Tests"),
     );
   }
 }

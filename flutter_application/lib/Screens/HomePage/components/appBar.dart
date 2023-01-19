@@ -21,16 +21,16 @@ class appBar extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Hello,',
                 style: (TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
               Text(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: kPrimaryColor),
@@ -38,9 +38,9 @@ class appBar extends StatelessWidget {
             ],
           ),
           Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                  color: Colors.deepPurple[100],
+                  color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(50)),
               child: Icon(
                 icon,

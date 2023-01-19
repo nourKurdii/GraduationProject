@@ -1,6 +1,7 @@
+// ignore_for_file: camel_case_types, file_names
+
 import 'package:flutter/material.dart';
 import 'bookingCard.dart';
-import 'package:objectid/objectid.dart';
 
 class bookingSection extends StatelessWidget {
   const bookingSection({
@@ -10,17 +11,19 @@ class bookingSection extends StatelessWidget {
     required this.time,
     required this.date,
     required this.id,
-    required this.status,
+    required this.status, required this.press, required this.labinfo,
   }) : super(key: key);
   final String name, labName, time, date;
   final String id, status;
+   final GestureTapCallback press;
+   final List labinfo;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SingleChildScrollView(
@@ -28,14 +31,15 @@ class bookingSection extends StatelessWidget {
             child: Column(
               children: [
                 bookingCard(
-                    name: name,
-                    labName: labName,
-                    date: date,
-                    time: time,
-                    id: id,
-                    status: status,
-                    ),
-                SizedBox(
+                  name: name,
+                  labName: labName,
+                  date: date,
+                  time: time,
+                  id: id,
+                  status: status,
+                  press : press,
+                ),
+                const SizedBox(
                   width: 20,
                 )
               ],

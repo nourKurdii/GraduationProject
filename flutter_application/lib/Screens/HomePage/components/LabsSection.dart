@@ -1,5 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/Dashboard.dart';
+import '../allLabs/labPage/labPage.dart';
 import 'LabCard.dart';
 
 class LabsSection extends StatelessWidget {
@@ -8,19 +10,21 @@ class LabsSection extends StatelessWidget {
     required this.name,
     required this.Image,
     required this.Location,
+    required this.labId,
   }) : super(key: key);
   final String name, Image, Location;
+  final String labId;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, new MaterialPageRoute(builder: (context) => Dashboard()));
+            context, MaterialPageRoute(builder: (context) => labpage(labId)));
       },
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SingleChildScrollView(
@@ -33,7 +37,7 @@ class LabsSection extends StatelessWidget {
                   location: Location,
                   press: () {},
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 )
               ],

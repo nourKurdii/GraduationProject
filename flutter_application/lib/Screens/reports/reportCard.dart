@@ -39,8 +39,8 @@ class reportCard extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -63,12 +63,16 @@ class reportCard extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.calendar_month),
+                                const Icon(
+                                  Icons.calendar_month,
+                                  color: kSecondColor,
+                                ),
                                 const SizedBox(width: 6),
                                 Text(date),
                                 const SizedBox(width: 6),
                                 const Icon(
                                   Icons.access_time_outlined,
+                                  color: kSecondColor,
                                 ),
                                 const SizedBox(width: 6),
                                 Text(time),

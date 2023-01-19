@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/Screens/HomePage/homePage.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_application/Screens/LogIn/components/roundedInputField.d
 import 'package:flutter_application/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../chat/methods.dart';
 import '../../../models/user.dart';
 import '../../LogIn/components/RoundedPasswordField.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -23,10 +26,10 @@ class Signup extends StatefulWidget {
 }
 
 class _bodyState extends State<Signup> {
-  TextEditingController emailControl = new TextEditingController();
-  TextEditingController nameControl = new TextEditingController();
-  TextEditingController phoneControl = new TextEditingController();
-  TextEditingController passwordControl = new TextEditingController();
+  TextEditingController emailControl = TextEditingController();
+  TextEditingController nameControl = TextEditingController();
+  TextEditingController phoneControl = TextEditingController();
+  TextEditingController passwordControl = TextEditingController();
 
   @override
   void initState() {
@@ -36,20 +39,34 @@ class _bodyState extends State<Signup> {
     phoneControl.text = User.getPhone();
   }
 
-  Dio dio = new Dio();
+  Dio dio = Dio();
   final _formKey = GlobalKey<FormState>();
   //User user = new User();
-  final String name = '';
-
+  //final String name = '';
+  var password;
   Future addUser() async {
-    return await dio.post('http://10.0.2.2:3000/signUp',
-        data: {
-          "name": User.name,
-          "email": User.email,
-          "phone": User.phone,
-          "password": User.password
-        },
-        options: Options(contentType: Headers.formUrlEncodedContentType));
+    try {
+      var res = await dio.post('http://10.0.2.2:3000/signUp',
+          data: {
+            "name": User.name,
+            "email": User.email,
+            "phone": User.phone,
+            "password": User.password
+          },
+          options: Options(contentType: Headers.formUrlEncodedContentType));
+      // if (res.data["success"] == true) {
+      //   Navigator.push(context,
+      //       MaterialPageRoute(builder: (context) => const LogInScreen()));
+      //}
+    } on DioError catch (e) {
+      //return e;
+      Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: kPrimaryLightColor,
+          textColor: Colors.black);
+    }
   }
 
   @override
@@ -62,7 +79,7 @@ class _bodyState extends State<Signup> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/images/tube.jpg", width: size.width * 0.15),
+              //Image.asset("assets/images/tube.jpg", width: size.width * 0.15),
               Form(
                   key: _formKey,
                   child: Column(children: [
@@ -136,8 +153,7 @@ class _bodyState extends State<Signup> {
                         children: [
                           InternationalPhoneNumberInput(
                             onInputChanged: (PhoneNumber number) {
-                              User.setPhone(
-                                  number.phoneNumber!.toString());
+                              User.setPhone(number.phoneNumber!.toString());
                             },
                             cursorColor: Colors.black,
                             formatInput: false,
@@ -163,6 +179,7 @@ class _bodyState extends State<Signup> {
                       textEditingCont: passwordControl,
                       onChange: (value) {
                         User.setPassword(value);
+                        password = value;
                       },
                       color: inputFieldBackground,
                     ),
@@ -172,25 +189,50 @@ class _bodyState extends State<Signup> {
                     roundedButton(
                       text: "SIGN UP",
                       press: () {
-                        if (_formKey.currentState!.validate()) {
-                          print("ok");
-                          addUser();
+                        if (User.name == null ||
+                            User.password == null ||
+                            User.email == null) {
                           Fluttertoast.showToast(
-                              msg: "Signed Up Successfully",
-                              toastLength: Toast.LENGTH_LONG,
+                              msg: "all fields are required",
+                              toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
                               backgroundColor: kPrimaryLightColor,
-                              textColor: Colors.black);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return homePage(User.name);
-                              },
-                            ),
-                          );
+                              textColor: Colors.black,
+                              fontSize: 16.0);
+                        } else if (User.password.toString().length < 6) {
+                          Fluttertoast.showToast(
+                              msg: "please choose stronger password",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: kPrimaryLightColor,
+                              textColor: Colors.black,
+                              fontSize: 16.0);
                         } else {
-                          print("not Ok");
+                          print("ok");
+                          createAccount(User.name, User.email, password)
+                              .then((value) {
+                            addUser().then((val) {
+                              print(val.data.success);
+                              if (val.data['success'] == true) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LogInScreen()));
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: val.data['msg'],
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: kPrimaryLightColor,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
+                            });
+                          });
                         }
                       },
                       color: kPrimaryColor,
@@ -203,7 +245,7 @@ class _bodyState extends State<Signup> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return LogInScreen();
+                                return const LogInScreen();
                               },
                             ),
                           );

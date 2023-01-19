@@ -1,8 +1,8 @@
+// ignore_for_file: camel_case_types, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../mainScreen/mainScreen.dart';
 
 class profileMenu extends StatelessWidget {
   const profileMenu({
@@ -11,8 +11,9 @@ class profileMenu extends StatelessWidget {
     required this.icon,
     required this.press,
   }) : super(key: key);
-  final String text, icon;
+  final String text;
   final VoidCallback press;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +23,23 @@ class profileMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: TextButton(
             style: TextButton.styleFrom(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               backgroundColor: inputFieldBackground,
             ),
             onPressed: press,
             child: Row(
               children: [
-                SvgPicture.asset(
+                Icon(
                   icon,
-                  width: 22,
+                  size: 22,
                   color: kPrimaryColor,
                 ),
-                SizedBox(
+                // SvgPicture.asset(
+                //   icon,
+                //   width: 22,
+                //   color: kPrimaryColor,
+                // ),
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(
@@ -42,7 +48,7 @@ class profileMenu extends StatelessWidget {
                     style: TextStyle(color: Colors.grey.shade600),
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.grey,
                 ),

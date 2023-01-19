@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, no_logic_in_create_state, must_be_immutable, depend_on_referenced_packages, prefer_typing_uninitialized_variables, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application/Screens/HomePage/allLabs/booking/test_controller.dart';
@@ -106,7 +108,6 @@ class _LabBookingScreen extends State<LabBookingScreen> {
         .toList();
 
     print(available.length);
-    // TODO: implement initState
     super.initState();
   }
 
@@ -129,7 +130,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        backgroundColor: const Color.fromARGB(255, 233, 227, 243),
+        backgroundColor: kPrimaryLightColor,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
@@ -137,12 +138,12 @@ class _LabBookingScreen extends State<LabBookingScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Color(0XFF6F36A5),
+            color: kPrimaryColor,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: const Color.fromARGB(255, 233, 227, 243),
+      backgroundColor: kPrimaryLightColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +168,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                         // style: Theme.of(context).textTheme.titleLarge,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 90, 43, 133),
+                          color: kPrimaryColor,
                           fontSize: 30,
                         ),
                       ),
@@ -223,7 +224,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                               });
                             },
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               width: 100,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -261,8 +262,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                             items: controller.dropDownData,
                             title: const Text(
                               "Select Test",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 90, 43, 133)),
+                              style: TextStyle(color: kPrimaryColor),
                             ),
                             selectedColor: Colors.black,
                             decoration: BoxDecoration(
@@ -270,13 +270,13 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(30)),
                               border: Border.all(
-                                color: const Color.fromARGB(255, 90, 43, 133),
+                                color: kPrimaryColor,
                                 width: 2,
                               ),
                             ),
                             buttonIcon: const Icon(
                               Icons.arrow_drop_down,
-                              color: Color.fromARGB(255, 90, 43, 133),
+                              color: kPrimaryColor,
                             ),
                             buttonText: const Text(
                               "Select Test",
@@ -343,8 +343,8 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                                     selected_h,
                                     DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now()),
-                                    0.0,
-                                    0.0);
+                                    0.1,
+                                    0.1);
                               }
 
                               Fluttertoast.showToast(
@@ -364,7 +364,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                             height: 50,
                             width: 140,
                             decoration: BoxDecoration(
-                              color: const Color(0XFF6F36A5),
+                              color: kPrimaryColor,
                               borderRadius: BorderRadius.circular(24),
                             ),
                             padding: const EdgeInsets.all(14),
@@ -372,7 +372,7 @@ class _LabBookingScreen extends State<LabBookingScreen> {
                             child: const Text(
                               "Submit",
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: Colors.white,
                                   fontSize: 18,
                                   fontFamily: 'Raleway'
                                   //fontWeight: FontWeight.bold

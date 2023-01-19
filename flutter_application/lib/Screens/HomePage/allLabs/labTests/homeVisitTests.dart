@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, unrelated_type_equality_checks, prefer_typing_uninitialized_variables, no_logic_in_create_state, must_be_immutable, file_names
+
 import 'package:flutter/material.dart';
 import '../../../profile/components/bottomNavBar.dart';
 import '../../../profile/components/enums.dart';
@@ -5,7 +7,6 @@ import 'HomeTestsAccordingToCat.dart';
 import 'package:dio/dio.dart';
 import '../labTests/labTestsArray.dart';
 
-// ignore: must_be_immutable
 class HomeTests extends StatefulWidget {
   List<String> labTests;
   String labEmail;
@@ -13,7 +14,7 @@ class HomeTests extends StatefulWidget {
   HomeTests(this.labTests, this.labEmail, this.unavailable, {super.key});
 
   @override
-  // ignore: no_logic_in_create_state
+
   HomeTestsState createState() =>
       HomeTestsState(labTests, labEmail, unavailable);
 }
@@ -27,11 +28,13 @@ class HomeTestsState extends State<HomeTests> {
     const Color.fromARGB(255, 248, 245, 255),
     const Color.fromARGB(255, 248, 245, 255),
     const Color.fromARGB(255, 248, 245, 255),
+    const Color.fromARGB(255, 248, 245, 255),
   ];
   List items = [
-    {"list": "diabetes", Image: 'assets/images/diabeties.png'},
+    {"list": "Diabetes", Image: 'assets/images/diabeties.png'},
     {"list": "Vitamin", Image: 'assets/images/vitamin.png'},
-    {"list": "hormonal", Image: 'assets/images/hormonal.png'}
+    {"list": "Hormonal", Image: 'assets/images/hormonal.png'},
+    {"list": "Thyroid", Image: 'assets/images/diabeties.png'},
   ];
 
   HomeTestsState(this.labTests, this.labEmail, this.unavailable);
@@ -39,7 +42,7 @@ class HomeTestsState extends State<HomeTests> {
   List<String> vitamins = [];
   List<String> hormon = [];
   var testName;
-  Dio dio = new Dio();
+  Dio dio =  Dio();
 
   getTestCat(testName) async {
     try {
@@ -47,7 +50,7 @@ class HomeTestsState extends State<HomeTests> {
       if (res.statusCode == 200) {
         return res.data;
       } else
-        return Future.error("error");
+       { return Future.error("error");}
     } catch (error) {
       return Future.error(error);
     }
@@ -55,7 +58,7 @@ class HomeTestsState extends State<HomeTests> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
 
     if (labTests != 0) {
       print(labTests);
@@ -125,7 +128,7 @@ class HomeTestsState extends State<HomeTests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: const Color(0xffa2bfbd),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(
@@ -163,7 +166,7 @@ class HomeTestsState extends State<HomeTests> {
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
                                       onTap: () {
-                                        print('location');
+                                     
                                       },
                                     ),
                                     const SizedBox(height: 10),
@@ -187,7 +190,7 @@ class HomeTestsState extends State<HomeTests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: const Color(0xffa2bfbd),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(
@@ -225,7 +228,7 @@ class HomeTestsState extends State<HomeTests> {
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
                                       onTap: () {
-                                        print('location');
+                                      
                                       },
                                     ),
                                     const SizedBox(height: 10),
@@ -249,7 +252,7 @@ class HomeTestsState extends State<HomeTests> {
                       height: 80,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 248, 245, 255),
+                        color: Color(0xffa2bfbd),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Column(
@@ -287,7 +290,7 @@ class HomeTestsState extends State<HomeTests> {
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
                                       onTap: () {
-                                        print('location');
+                                      
                                       },
                                     ),
                                     const SizedBox(height: 10),
@@ -297,7 +300,70 @@ class HomeTestsState extends State<HomeTests> {
                             ),
                           ]),
                     )),
-              )
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => HomeTestAccordingToCat(
+                          diabetes, labEmail, unavailable)));
+                },
+                child: Card(
+                    elevation: 0,
+                    //color: Colors.white,
+                    child: Container(
+                      height: 80,
+                      width: size.width * 0.9,
+                      decoration: BoxDecoration(
+                        color: const Color(0xffa2bfbd),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Wrap(
+                              children: <Widget>[
+                                Container(
+                                  width: 110.0,
+                                  height: 60.0,
+                                  margin: const EdgeInsets.only(
+                                      top: 10, bottom: 5, left: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    //padding: EdgeInsets.only(top: 10),
+                                    image: const DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/thyroid.jpg'),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(left: 17)),
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 27,
+                                    ),
+                                    InkWell(
+                                      child: const Text("Thyroid",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                              fontFamily: 'Raleway',
+                                              color: Color.fromARGB(
+                                                  255, 33, 32, 32))),
+                                      onTap: () {
+                                      
+                                      },
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ]),
+                    )),
+              ),
             ]),
           ),
         )
@@ -309,5 +375,5 @@ class HomeTestsState extends State<HomeTests> {
 }
 
 class AppColors {
-  static const Color mainColor = Color(0XFF6F36A5);
+  static const Color mainColor =Color(0xff425c5a);
 }

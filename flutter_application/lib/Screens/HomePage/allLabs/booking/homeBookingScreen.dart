@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_is_not_empty
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application/Screens/HomePage/allLabs/booking/test_controller.dart';
@@ -11,6 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../models/user.dart';
+import '../../../LogIn/components/roundedInputField.dart';
 import '../../../profile/components/bottomNavBar.dart';
 import '../../../profile/components/enums.dart';
 
@@ -89,8 +92,9 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
     date,
     latitude,
     longitude,
+    location,
   ) async {
-    return await dio.post('http://10.0.2.2:3000/addLabOrder',
+    return await dio.post('http://10.0.2.2:3000/addHomeOrder',
         data: {
           "patientEmail": patientEmail,
           "labEmail": labEmail,
@@ -99,12 +103,14 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
           "date": date,
           "latitude": latitude,
           "longitude": longitude,
-          "homeVisit": true
+          "homeVisit": true,
+          "location": location
         },
         options: Options(contentType: Headers.formUrlEncodedContentType));
   }
 
   var selected_h;
+  var location;
 
   @override
   void initState() {
@@ -140,7 +146,7 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        backgroundColor: const Color.fromARGB(255, 233, 227, 243),
+        backgroundColor: kPrimaryLightColor,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
@@ -148,12 +154,12 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Color(0XFF6F36A5),
+            color: kPrimaryColor,
           ),
         ),
         centerTitle: true,
       ),
-      backgroundColor: const Color.fromARGB(255, 233, 227, 243),
+      backgroundColor: kPrimaryLightColor,
       bottomNavigationBar: const BottomNavBar(
         selectedMeu: MenuState.home,
       ),
@@ -181,7 +187,7 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                         // style: Theme.of(context).textTheme.titleLarge,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 90, 43, 133),
+                          color: kPrimaryColor,
                           fontSize: 30,
                         ),
                       ),
@@ -275,8 +281,7 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                             items: controller.dropDownData,
                             title: const Text(
                               "Select Test",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 90, 43, 133)),
+                              style: TextStyle(color: kPrimaryColor),
                             ),
                             selectedColor: Colors.black,
                             decoration: BoxDecoration(
@@ -284,13 +289,13 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(30)),
                               border: Border.all(
-                                color: const Color.fromARGB(255, 90, 43, 133),
+                                color: kPrimaryColor,
                                 width: 2,
                               ),
                             ),
                             buttonIcon: const Icon(
                               Icons.arrow_drop_down,
-                              color: Color.fromARGB(255, 90, 43, 133),
+                              color: kPrimaryColor,
                             ),
                             buttonText: const Text(
                               "Select Test",
@@ -319,6 +324,21 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                           ));
                     }),
                   ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RounedInputField(
+                        textEditingCont: TextEditingController(text: location),
+                        hintText: "location description",
+                        icon: Icons.location_on,
+                        onChanged: (value) {
+                          location = value;
+                          //User.setEmail(value);
+                        },
+                        color: inputFieldBackground,
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
@@ -358,7 +378,8 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                                     DateFormat('yyyy-MM-dd')
                                         .format(DateTime.now()),
                                     latitude,
-                                    longitude);
+                                    longitude,
+                                    location);
                                 print(testData[i]);
                               }
 
@@ -381,7 +402,7 @@ class _HomeBookingScreen extends State<HomeBookingScreen> {
                             height: 50,
                             width: 140,
                             decoration: BoxDecoration(
-                              color: const Color(0XFF6F36A5),
+                              color: kPrimaryColor,
                               borderRadius: BorderRadius.circular(24),
                             ),
                             padding: const EdgeInsets.all(14),

@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -18,13 +20,13 @@ class alreadyHaveAnAccountCheck extends StatelessWidget {
       children: <Widget>[
         Text(
           login ? "Don't Have An Account ?" : "Already Have An Account",
-          style: TextStyle(color: kPrimaryColor),
+          style: const TextStyle(color: kPrimaryColor),
         ),
         GestureDetector(
           onTap: press,
           child: Text(
             login ? " Sign Up" : " Log In",
-            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
           ),
         )
       ],

@@ -49,10 +49,10 @@ class _reportsPage extends State<reportsPage> {
       appBar: AppBar(
         title: const Text(
           "My Tests Reports",
-          style: TextStyle(color: kPrimaryColor),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: kPrimaryColor,
         elevation: 0.5,
         automaticallyImplyLeading: false,
       ),

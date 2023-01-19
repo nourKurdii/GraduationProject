@@ -6,9 +6,11 @@ import 'package:flutter_application/Screens/welcome/components/background.dart';
 import 'package:flutter_application/Screens/welcome/components/roundedButton.dart';
 import 'package:flutter_application/constants.dart';
 
-import '../../SignUp/SignUpScreen.dart';
+import '../../../DoctorApp/logInDoctor.dart';
 
 class Body extends StatelessWidget {
+  const Body({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,7 +29,7 @@ class Body extends StatelessWidget {
               height: size.height * 0.04,
             ),
             roundedButton(
-              text: "LOG IN",
+              text: "Patient",
               press: () {
                 Navigator.push(
                     context,
@@ -39,12 +41,12 @@ class Body extends StatelessWidget {
               textColor: Colors.white,
             ),
             roundedButton(
-              text: "SIGN UP",
+              text: "Doctor",
               press: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
+                      builder: (context) => LoginPagew(),
                     ));
               },
               color: kPrimaryLightColor,

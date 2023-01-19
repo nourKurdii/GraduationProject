@@ -13,17 +13,18 @@ class listView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35.0),
-      child: Container(
+      child: SizedBox(
         height: 50,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
                 child: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => allTests()));
+                    MaterialPageRoute(builder: (context) => const allTests()));
               },
-              child: categories(
+              child: const categories(
                 icon: 'assets/images/report.svg',
                 text: " Tests",
               ),
@@ -33,14 +34,11 @@ class listView extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                           context,
-                          new MaterialPageRoute(
-                              builder: (context) => labsMap()));
+                          MaterialPageRoute(
+                              builder: (context) => const labsMap()));
                     },
-                    child: categories(
+                    child: const categories(
                         icon: 'assets/images/tube.svg', text: " Labs"))),
-            Center(
-                child: categories(
-                    icon: 'assets/images/report.svg', text: " Tips  ")),
           ],
         ),
       ),
