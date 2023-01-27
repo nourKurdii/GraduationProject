@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/DoctorApp/allBookings/speceficBooking.dart';
 import 'package:flutter_application/DoctorApp/homescreen.dart';
-import 'package:flutter_application/Screens/profile/profileScreen.dart';
 import '../../../constants.dart';
 import 'package:http/http.dart' as http;
 import 'components/bookingSection.dart';
@@ -175,6 +174,7 @@ class _doctorBookings extends State<doctorBookings> {
                                   context,
                                   new MaterialPageRoute(
                                       builder: (context) => speceficBooking(
+                                        docEmail,
                                             snapshot.data[index]
                                                 ['patientEmail'],
                                             snapshot.data[index]['time'],

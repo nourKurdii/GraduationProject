@@ -97,7 +97,8 @@ class _allTests extends State<allTests> {
                                     Text(
                                       labsNames[index],
                                       style: TextStyle(
-                                          color: Colors.grey.shade400,fontWeight: FontWeight.bold),
+                                          color: Colors.grey.shade400,
+                                          fontWeight: FontWeight.bold),
                                     )
                                   ],
                                 )

@@ -170,8 +170,8 @@ class _TestReport extends State<TestReport> {
                                 borderRadius: BorderRadius.circular(
                                     getProportionateScreenHeight(10)),
                                 image: const DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/tube.jpg"))),
+                                    image: AssetImage(
+                                        "assets/images/Science-rafiki.png"))),
                           ),
                         ),
                         Column(

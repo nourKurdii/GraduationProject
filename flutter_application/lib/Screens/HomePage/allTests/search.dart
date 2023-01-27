@@ -82,7 +82,7 @@ class SearchTest extends SearchDelegate {
                               decoration: const BoxDecoration(
                                 image: DecorationImage(
                                     image:
-                                        AssetImage('assets/images/tube2.jpg'),
+                                        AssetImage('assets/images/Blood test-rafiki.png'),
                                     fit: BoxFit.fitWidth,
                                     filterQuality: FilterQuality.high),
                                 borderRadius: BorderRadius.all(

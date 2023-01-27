@@ -682,7 +682,8 @@ var functions = {
         Booking.find({doctorEmail: req.params.doctor,  $nor: [
             {status: "finished"},
             {status:"ratted"},
-            {status: "rejected"}
+            {status: "rejected"},
+            {status: "accepted"}
 
          ]    },(error,data)=>{
             if (error) throw error;
@@ -707,7 +708,7 @@ var functions = {
     acceptrequest: function (req , res) {
         
         Booking.findOneAndUpdate(
-            { _id:req.params._id }, { status:"accepted" },
+            { _id:req.params.id }, { status:"accepted" },
              (error, data) => {
                 if (error) {
                     console.log(error);
@@ -720,9 +721,9 @@ var functions = {
         return res.send({ status: "accepted" });
     }, 
       addtimefordoctor: function (req , res) {
-        console.log("req.params._id");
+        console.log("req.params.id");
         console.log(req.body.time)
-         Doctor.findOneAndUpdate({_id:req.params._id},{$push:{unAvailableTime:req.body.time}},
+         Doctor.findOneAndUpdate({email:req.params.email},{$push:{unAvailableTime:req.body.time}},
              (error, data) => {
                 if (error) {
                     console.log(error);
@@ -734,6 +735,14 @@ var functions = {
         console.log("unAvailableTime updated");
         return res.send({ status: "updated"   }); 
     },
+    getDoctorBookings: function(req,res){
+          Booking.find({doctorEmail: req.params.doctor},(error,data)=>{
+            if (error) throw error;
+            console.log(data)
+            return res.json(data)
+        })
+    }
+
 
 }
 

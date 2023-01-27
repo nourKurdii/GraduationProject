@@ -133,9 +133,7 @@ class _ChatState extends State<Chat> {
               child: FutureBuilder<List>(
                   future: onshow(),
                   builder: (context, snapshot) {
-                    //  print(snapshot.data);
                     if (snapshot.hasData) {
-                      //print(snapshot.data);
                       var d = snapshot.data?.length;
 
                       return GridView.builder(
@@ -159,50 +157,18 @@ class _ChatState extends State<Chat> {
                                 GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        //print(snapshot.data![index]['name']);
-                                        email = snapshot.data![index]
-                                            ['email']; // email of other user
-                                        //print("email :" + email);
-                                        // print("name :" + name); // my name
-                                        if (int.tryParse(name) == null) {
-                                          String roomId = chatRoomId(
-                                                  // _auth.currentUser!.displayName!,
-                                                  name,
-                                                  snapshot.data![index]
-                                                      ['email'])
-                                              .toString()
-                                              .replaceAll("@gmail.com", "");
-                                          // print(roomId);
-                                          //snapshot.data![index]['email']);
+                                        {
+                                          //print("hoon");
+                                          //print(snapshot.data![index]['email']);
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (_) => ChatScreen(
-                                                _auth.currentUser!.email.toString(),
+                                                  // chatRoomId: roomId,
+                                                  // userMap: snapshot.data![index],
+                                                  _auth.currentUser!.email
+                                                      .toString(),
                                                   snapshot.data![index]
-                                                      ['email']
-                                                //chatRoomId: roomId,
-                                                //userMap: snapshot.data![index],
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          String roomId = chatRoomId(
-                                              //   _auth.currentUser!.email!,
-
-                                              snapshot.data![index]['email'],
-                                              name
-                                              //_auth.currentUser!.email!,
-                                              );
-                                          //name);
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (_) => ChatScreen(
-                                                // chatRoomId: roomId,
-                                                // userMap: snapshot.data![index],
-                                                  _auth.currentUser!.email.toString(),
-                                                  snapshot.data![index]
-                                                      ['email']
-                                              ),
+                                                      ['email']),
                                             ),
                                           );
                                         }

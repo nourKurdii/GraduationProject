@@ -2,7 +2,6 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/HomePage/homePage.dart';
 import 'package:flutter_application/Screens/LogIn/LogInScreen.dart';
 import 'package:flutter_application/Screens/SignUp/components/background.dart';
 import 'package:flutter_application/Screens/LogIn/components/roundedInputField.dart';
@@ -214,23 +213,28 @@ class _bodyState extends State<Signup> {
                           createAccount(User.name, User.email, password)
                               .then((value) {
                             addUser().then((val) {
-                              print(val.data.success);
-                              if (val.data['success'] == true) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LogInScreen()));
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg: val.data['msg'],
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: kPrimaryLightColor,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              }
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LogInScreen()));
+                              // print(val.data.success);
+                              // if (val.data['success'] == true) {
+                              //   Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               const LogInScreen()));
+                              // } else {
+                              //   Fluttertoast.showToast(
+                              //       msg: val.data['msg'],
+                              //       toastLength: Toast.LENGTH_SHORT,
+                              //       gravity: ToastGravity.BOTTOM,
+                              //       timeInSecForIosWeb: 1,
+                              //       backgroundColor: kPrimaryLightColor,
+                              //       textColor: Colors.white,
+                              //       fontSize: 16.0);
+                              // }
                             });
                           });
                         }

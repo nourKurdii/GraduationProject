@@ -14,7 +14,6 @@ class HomeTests extends StatefulWidget {
   HomeTests(this.labTests, this.labEmail, this.unavailable, {super.key});
 
   @override
-
   HomeTestsState createState() =>
       HomeTestsState(labTests, labEmail, unavailable);
 }
@@ -42,15 +41,16 @@ class HomeTestsState extends State<HomeTests> {
   List<String> vitamins = [];
   List<String> hormon = [];
   var testName;
-  Dio dio =  Dio();
+  Dio dio = Dio();
 
   getTestCat(testName) async {
     try {
       var res = await dio.get(("http://10.0.2.2:3000/getTestCat/$testName"));
       if (res.statusCode == 200) {
         return res.data;
-      } else
-       { return Future.error("error");}
+      } else {
+        return Future.error("error");
+      }
     } catch (error) {
       return Future.error(error);
     }
@@ -165,9 +165,7 @@ class HomeTestsState extends State<HomeTests> {
                                               fontFamily: 'Raleway',
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
-                                      onTap: () {
-                                     
-                                      },
+                                      onTap: () {},
                                     ),
                                     const SizedBox(height: 10),
                                   ],
@@ -227,9 +225,7 @@ class HomeTestsState extends State<HomeTests> {
                                               fontFamily: 'Raleway',
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
-                                      onTap: () {
-                                      
-                                      },
+                                      onTap: () {},
                                     ),
                                     const SizedBox(height: 10),
                                   ],
@@ -289,9 +285,7 @@ class HomeTestsState extends State<HomeTests> {
                                               fontFamily: 'Raleway',
                                               color: Color.fromARGB(
                                                   255, 33, 32, 32))),
-                                      onTap: () {
-                                      
-                                      },
+                                      onTap: () {},
                                     ),
                                     const SizedBox(height: 10),
                                   ],
@@ -301,69 +295,69 @@ class HomeTestsState extends State<HomeTests> {
                           ]),
                     )),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HomeTestAccordingToCat(
-                          diabetes, labEmail, unavailable)));
-                },
-                child: Card(
-                    elevation: 0,
-                    //color: Colors.white,
-                    child: Container(
-                      height: 80,
-                      width: size.width * 0.9,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffa2bfbd),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Wrap(
-                              children: <Widget>[
-                                Container(
-                                  width: 110.0,
-                                  height: 60.0,
-                                  margin: const EdgeInsets.only(
-                                      top: 10, bottom: 5, left: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    //padding: EdgeInsets.only(top: 10),
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/thyroid.jpg'),
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.only(left: 17)),
-                                Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 27,
-                                    ),
-                                    InkWell(
-                                      child: const Text("Thyroid",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              fontFamily: 'Raleway',
-                                              color: Color.fromARGB(
-                                                  255, 33, 32, 32))),
-                                      onTap: () {
-                                      
-                                      },
-                                    ),
-                                    const SizedBox(height: 10),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ]),
-                    )),
-              ),
+              //   GestureDetector(
+              //     onTap: () {
+              //       Navigator.of(context).push(MaterialPageRoute(
+              //           builder: (context) => HomeTestAccordingToCat(
+              //               diabetes, labEmail, unavailable)));
+              //     },
+              //     child: Card(
+              //         elevation: 0,
+              //         //color: Colors.white,
+              //         child: Container(
+              //           height: 80,
+              //           width: size.width * 0.9,
+              //           decoration: BoxDecoration(
+              //             color: const Color(0xffa2bfbd),
+              //             borderRadius: BorderRadius.circular(25),
+              //           ),
+              //           child: Column(
+              //               crossAxisAlignment: CrossAxisAlignment.start,
+              //               children: <Widget>[
+              //                 Wrap(
+              //                   children: <Widget>[
+              //                     Container(
+              //                       width: 110.0,
+              //                       height: 60.0,
+              //                       margin: const EdgeInsets.only(
+              //                           top: 10, bottom: 5, left: 10),
+              //                       decoration: BoxDecoration(
+              //                         color: Colors.white,
+              //                         borderRadius: BorderRadius.circular(20),
+              //                         //padding: EdgeInsets.only(top: 10),
+              //                         image: const DecorationImage(
+              //                             image: AssetImage(
+              //                                 'assets/images/thyroid.jpg'),
+              //                             fit: BoxFit.cover),
+              //                       ),
+              //                     ),
+              //                     const Padding(
+              //                         padding: EdgeInsets.only(left: 17)),
+              //                     Column(
+              //                       children: [
+              //                         const SizedBox(
+              //                           height: 27,
+              //                         ),
+              //                         InkWell(
+              //                           child: const Text("Thyroid",
+              //                               style: TextStyle(
+              //                                   fontWeight: FontWeight.bold,
+              //                                   fontSize: 18,
+              //                                   fontFamily: 'Raleway',
+              //                                   color: Color.fromARGB(
+              //                                       255, 33, 32, 32))),
+              //                           onTap: () {
+
+              //                           },
+              //                         ),
+              //                         const SizedBox(height: 10),
+              //                       ],
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ]),
+              //         )),
+              //   ),
             ]),
           ),
         )
@@ -375,5 +369,5 @@ class HomeTestsState extends State<HomeTests> {
 }
 
 class AppColors {
-  static const Color mainColor =Color(0xff425c5a);
+  static const Color mainColor = Color(0xff425c5a);
 }

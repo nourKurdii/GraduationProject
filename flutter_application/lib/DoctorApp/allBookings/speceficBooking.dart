@@ -6,20 +6,23 @@ import 'package:flutter_application/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class speceficBooking extends StatefulWidget {
+  String docEmail;
   String userEmail;
   String time;
   String date;
   String id;
-  speceficBooking(this.userEmail, this.date, this.time, this.id, {super.key});
+  speceficBooking(this.docEmail, this.userEmail, this.date, this.time, this.id,
+      {super.key});
 
   @override
   _speceficBookingState createState() =>
-      _speceficBookingState(userEmail, time, date, id);
+      _speceficBookingState(docEmail, userEmail, time, date, id);
 }
 
 bool done = false;
 
 class _speceficBookingState extends State<speceficBooking> {
+  String docEmail;
   String userEmail;
   String time;
   String date;
@@ -58,7 +61,26 @@ class _speceficBookingState extends State<speceficBooking> {
     }
   }
 
-  _speceficBookingState(this.userEmail, this.date, this.time, this.id);
+  addTime(Doctorid, Time) async {
+    try {
+      return await dio.put(
+        'http://10.0.2.2:3000/addTimeForDoctor/$Doctorid',
+        data: {
+          "time": Time,
+        },
+      );
+    } on DioError catch (e) {
+      return Fluttertoast.showToast(
+          msg: e.response!.data['msg'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: kPrimaryLightColor,
+          textColor: Colors.black);
+    }
+  }
+
+  _speceficBookingState(
+      this.docEmail, this.userEmail, this.date, this.time, this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +222,8 @@ class _speceficBookingState extends State<speceficBooking> {
                             style: TextStyle(color: kPrimaryColor),
                           ),
                           onPressed: () {
-                            //rejectOrder(id);
+                            acceptOrder(id);
+                            addTime(docEmail, time);
                             Navigator.of(context).pop();
                           },
                         )
@@ -260,8 +283,9 @@ class _speceficBookingState extends State<speceficBooking> {
                             style: TextStyle(color: kPrimaryColor),
                           ),
                           onPressed: () {
-                            //rejectOrder(id);
+                            rejectOrder(id);
                             Navigator.of(context).pop();
+                            setState(() {});
                           },
                         )
                       ],

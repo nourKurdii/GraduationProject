@@ -43,8 +43,8 @@ router.get('/getdoctorname/:email', actions.getDoctorname)
 router.get('/getDoctorOrders/:doctor',actions.getDoctorOrders)
 router.put('/rejectDoctorOrder/:id',actions.rejectDoctorOrder)
 router.put('/acceptrequest/:id',actions.acceptrequest)
-
-
+router.put('/addTimeForDoctor/:id',actions.addtimefordoctor)
+router.get('/getDoctorBookings/:doctor',actions.getDoctorBookings)
 
 
 module.exports = router

@@ -29,7 +29,8 @@ class AboutState extends State<About> {
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: const Color.fromARGB(255, 186, 179, 198).withOpacity(0.1),
+                color:
+                    const Color.fromARGB(255, 186, 179, 198).withOpacity(0.1),
                 blurRadius: 10.0,
                 offset: const Offset(0, 3),
                 spreadRadius: 1,
@@ -58,7 +59,7 @@ class AboutState extends State<About> {
                 Container(
                   margin: const EdgeInsets.only(right: 10, left: 10),
                   child: const Text(
-                    'Labor is the amount of physical, mental, and social effort used to produce goods and services in an economy. It supplies the expertise, manpower, and service needed to turn raw materials into finished products and services. In return for their labor, workers receive a wage to buy the goods and services they dont produce themselves.',
+                    'A medical laboratory or clinical laboratory is a laboratory where tests are conducted out on clinical specimens to obtain information about the health of a patient to aid in diagnosis, treatment, and prevention of disease.[1] Clinical Medical laboratories are an example of applied science, as opposed to research laboratories that focus on basic science, such as found in some academic institutions.',
                     maxLines: 20,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,

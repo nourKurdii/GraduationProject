@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/DoctorApp/profile.dart';
+import 'package:flutter_application/DoctorApp/schedule/schedule.dart';
 import 'package:flutter_application/constants.dart';
 
 import '../chat/HomeScreen.dart';
@@ -107,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => doctorBookings(email,name)));
+                                  builder: (context) => schedule(email,name)));
                         },
                         child: Card(
                           child: Column(

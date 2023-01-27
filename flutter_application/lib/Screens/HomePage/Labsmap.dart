@@ -144,7 +144,7 @@ class _labsMap extends State<labsMap> {
                                     padding: EdgeInsets.only(
                                         top: 10, left: 10, right: 10),
                                     child: Text(
-                                      "lab Describtion",
+                                      "",
                                       maxLines: 2,
                                     ),
                                   )

@@ -82,70 +82,73 @@ class _bodyState extends State<Signin> {
     return Scaffold(
       body: background(
         //container
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //Text("Welcome",style: TextStyle(fontWeight: FontWeight.bold),),
-            //SizedBox(height: size.height * 0.03, ),
-            Image.asset("assets/images/signin_page.png",
-                width: size.width * 0.6),
-            Form(
-              child: Column(children: [
-                RounedInputField(
-                  textEditingCont: TextEditingController(text: logEmail),
-                  hintText: "someone@company.com",
-                  icon: Icons.person,
-                  onChanged: (value) {
-                    logEmail = value;
-                    //User.setEmail(value);
-                  },
-                  color: inputFieldBackground,
-                ),
-                RoundedPasswordField(
-                    onChange: (Value) {
-                      logPassword = Value;
-                      //User.setPassword(Value);
+        child: Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              //Text("Welcome",style: TextStyle(fontWeight: FontWeight.bold),),
+              //SizedBox(height: size.height * 0.03, ),
+              Image.asset("assets/images/signin_page.png",
+                  width: size.width * 0.6),
+              Form(
+                child: Column(children: [
+                  RounedInputField(
+                    textEditingCont: TextEditingController(text: logEmail),
+                    hintText: "someone@company.com",
+                    icon: Icons.person,
+                    onChanged: (value) {
+                      logEmail = value;
+                      //User.setEmail(value);
                     },
                     color: inputFieldBackground,
-                    textEditingCont: TextEditingController(text: logPassword)),
-                roundedButton(
-                  text: "LOGIN",
-                  press: () {
-                    logIn(logEmail, logPassword).then((value) {
-                      save(logEmail, logPassword).then((val) {
-                        if (val.data['success']) {
-                          Fluttertoast.showToast(
-                              msg: 'log in successfully',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: kPrimaryLightColor,
-                              textColor: Colors.grey.shade800,
-                              fontSize: 16.0);
-                          User.setEmail(logEmail);
-                          getUserInfo(logEmail);
-                        }
-                      });
-                    });
-                     },
-                  color: kPrimaryColor,
-                  textColor: Colors.white,
-                ),
-                SizedBox(
-                  height: size.height * 0.015,
-                ),
-                alreadyHaveAnAccountCheck(press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignUpScreen();
+                  ),
+                  RoundedPasswordField(
+                      onChange: (Value) {
+                        logPassword = Value;
+                        //User.setPassword(Value);
                       },
-                    ),
-                  );
-                }),
-              ]),
-            ),
-          ],
+                      color: inputFieldBackground,
+                      textEditingCont:
+                          TextEditingController(text: logPassword)),
+                  roundedButton(
+                    text: "LOGIN",
+                    press: () {
+                      logIn(logEmail, logPassword).then((value) {
+                        save(logEmail, logPassword).then((val) {
+                          if (val.data['success']) {
+                            Fluttertoast.showToast(
+                                msg: 'log in successfully',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: kPrimaryLightColor,
+                                textColor: Colors.grey.shade800,
+                                fontSize: 16.0);
+                            User.setEmail(logEmail);
+                            getUserInfo(logEmail);
+                          }
+                        });
+                      });
+                    },
+                    color: kPrimaryColor,
+                    textColor: Colors.white,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.015,
+                  ),
+                  alreadyHaveAnAccountCheck(press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SignUpScreen();
+                        },
+                      ),
+                    );
+                  }),
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );

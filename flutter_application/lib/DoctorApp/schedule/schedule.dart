@@ -1,34 +1,49 @@
-// ignore_for_file: avoid_print, camel_case_types, file_names
+// ignore_for_file: camel_case_types, avoid_print, unnecessary_new, must_be_immutable, no_logic_in_create_state
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Screens/profile/homeVisits/speceficHomeVisit.dart';
-
+import 'package:flutter_application/DoctorApp/allBookings/speceficBooking.dart';
+import 'package:flutter_application/DoctorApp/homescreen.dart';
 import '../../../constants.dart';
-import '../../../models/user.dart';
-import '../../profile/allBookings/components/bookingSection.dart';
-import '../profileScreen.dart';
 import 'package:http/http.dart' as http;
+import 'components/bookingSection.dart';
 
-import 'package:flutter_application/models/orders.dart';
-
-class homeVisits extends StatefulWidget {
-  const homeVisits({super.key});
+class schedule extends StatefulWidget {
+  String docEmail;
+  String name;
+  schedule(this.docEmail, this.name, {super.key});
 
   @override
-  State<homeVisits> createState() => _homeVisits();
+  State<schedule> createState() => _schedule(docEmail, name);
 }
 
-class _homeVisits extends State<homeVisits> {
-  Future<List> getHomeVisits(userEmail) async {
+class _schedule extends State<schedule> {
+  String docEmail;
+  String name;
+  _schedule(this.docEmail, this.name);
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<List> getDoctorBookings(docEmail) async {
     try {
       var res = await http
-          .get(Uri.parse("http://10.0.2.2:3000/getHomeVisits/$userEmail"));
+          .get(Uri.parse("http://10.0.2.2:3000/getDoctorBookings/$docEmail"));
 
-      print(userEmail);
+      print(docEmail);
       if (res.statusCode == 200) {
-        var obj = json.decode(res.body);
-        print(obj);
+        setState(() {
+          res;
+        });
+        //var obj = json.decode(res.body);
+        //print(obj);
+
+        /*for (var i = 0; i < obj.length; i++) {
+          labInfo = obj[i]['labInfo'];
+          print(labInfo[i]['name']);
+        }*/
+
         return json.decode(res.body);
       } else {
         return Future.error('error');
@@ -38,12 +53,13 @@ class _homeVisits extends State<homeVisits> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "My Home Visits",
+          "My Bookings",
           style: TextStyle(color: Colors.white),
         ),
         elevation: 1.5,
@@ -51,8 +67,10 @@ class _homeVisits extends State<homeVisits> {
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const profileScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(docEmail, name)));
           },
         ),
         centerTitle: true,
@@ -64,7 +82,7 @@ class _homeVisits extends State<homeVisits> {
         child: SingleChildScrollView(
           child: Stack(alignment: Alignment.center, children: [
             FutureBuilder<List>(
-              future: getHomeVisits(User.email),
+              future: getDoctorBookings(docEmail),
               builder: ((context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
                   print(snapshot.error);
@@ -101,17 +119,12 @@ class _homeVisits extends State<homeVisits> {
                             height: 20,
                           ),
                           const Text(
-                            "No Home Visits Yet",
+                            "No Test Bookings Yet",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 12,
-                          ),
-                          const Text(
-                            " Set Your Location then Book your home vist ",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 32,
@@ -149,49 +162,28 @@ class _homeVisits extends State<homeVisits> {
                     child: Column(
                       children: [
                         ...List.generate(
-                            length,
-                            (index) => bookingSection(
-                                  name: snapshot.data[index]['testName'],
-                                  labinfo: const [],
-                                  time: snapshot.data[index]['time'],
-                                  date: snapshot.data[index]['date'],
-                                  labName: labInfo
-                                      .fromJson(order
-                                          .fromJson(snapshot.data[index])
-                                          .labinfo![0])
-                                      .name,
-                                  id: snapshot.data[index]['_id'],
-                                  status: snapshot.data[index]['status'],
-                                  press: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                speceficHomevisit(
-                                                    snapshot.data[index]['_id'],
-                                                    labInfo
-                                                        .fromJson(order
-                                                            .fromJson(snapshot
-                                                                .data[index])
-                                                            .labinfo![0])
-                                                        .name,
-                                                    labInfo
-                                                        .fromJson(order
-                                                            .fromJson(snapshot
-                                                                .data[index])
-                                                            .labinfo![0])
-                                                        .email,
-                                                    snapshot.data[index]
-                                                        ['testName'],
-                                                    snapshot.data[index]
-                                                        ['time'],
-                                                    snapshot.data[index]
-                                                        ['date'],
-                                                    // snapshot.data[index]
-                                                    //     ['location'],
-                                                    "nablus,rafedia street")));
-                                  },
-                                )),
+                          length,
+                          (index) => bookingSection(
+                            userEmail: snapshot.data[index]['patientEmail'],
+                            time: snapshot.data[index]['time'],
+                            date: snapshot.data[index]['date'],
+                            id: snapshot.data[index]['_id'],
+                            status: snapshot.data[index]['status'],
+                            press: () {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => speceficBooking(
+                                            docEmail,
+                                            snapshot.data[index]
+                                                ['patientEmail'],
+                                            snapshot.data[index]['time'],
+                                            snapshot.data[index]['date'],
+                                            snapshot.data[index]['_id'],
+                                          )));
+                            },
+                          ),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),

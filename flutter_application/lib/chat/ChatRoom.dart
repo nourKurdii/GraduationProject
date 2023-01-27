@@ -6,7 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application/constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
-late User sighnedInUser;
+//late User sighnedInUser;
+late String senderUser;
 
 class ChatScreen extends StatefulWidget {
   static const String screenRoute = 'chat';
@@ -30,20 +31,23 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentUser();
+    // getCurrentUser();
+    print("sender: " + sendeUser);
+    print("receiver: " + receiverUser);
+    senderUser = sendeUser;
   }
 
-  void getCurrentUser() {
-    try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        sighnedInUser = user;
-        print(sighnedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // void getCurrentUser() {
+  //   try {
+  //     final user = _auth.currentUser;
+  //     if (user != null) {
+  //       sighnedInUser = user;
+  //       print(sighnedInUser.email);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +155,7 @@ class MessagesStreamBuilder extends StatelessWidget {
             final messageText = message.get('text');
             final messageSender = message.get('sender');
             final messageReceiver = message.get('receiver');
-            final currentUser = sighnedInUser.email;
+            final currentUser = senderUser;
 
             if (currentUser == messageSender) {
               //the code from singed in user
